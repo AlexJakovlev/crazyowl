@@ -5,7 +5,7 @@ $user_id = wp_get_current_user();
 	<div class="account__profile">
       <div class="account__top">
          <div class="account__profile-title">
-            <h6 class="profile__email-title">Your email</h6>
+            <h6 class="profile__email-title">Your email3</h6>
             <p class="profile__email-text"><?php echo $user_id->user_email ?></p>
          </div>
          <div class="account__profile-btns">

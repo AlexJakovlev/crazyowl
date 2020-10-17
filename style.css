@@ -90,6 +90,7 @@ ul li {
 }
 .header__menu_mobile {
 	padding: 1rem 0.5rem;
+	width: 100%;
 }
 .header__menu_mobile .menu-item {
 	list-style: none;
