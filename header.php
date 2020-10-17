@@ -101,7 +101,7 @@ $args = array(
 
 // print menu
 wp_nav_menu( $args );?>
-<!--    </aside>-->
+    </aside>
 <!--    <ul class="header__menu_mobile">-->
 <!--        <li class="menu-item menu-item_offers"><a href="">NEW OFFERS</a></li>-->
 <!--        <li class="menu-item menu-item_offers"><a href="">HOT OFFERS</a></li>-->
