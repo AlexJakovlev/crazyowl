@@ -70,39 +70,15 @@ function remove_admin_bar() {
 add_action('after_setup_theme', 'remove_admin_bar');
 
 //------------------------------
-add_action( 'woocommerce_register_form_start', 'woocomerce_form_registration_fields', 25 );
-
-function woocomerce_form_registration_fields() {
 
 
-//    echo '<div>Регистрация</div>';
-//    // поле "Имя"
-//    $billing_first_name = ! empty( $_POST[ 'billing_first_name' ] ) ? $_POST[ 'billing_first_name' ] : '';
-//    echo '<p class="form-row form-row-first">
-//		<label for="kind_of_name">Имя <span class="required">*</span></label>
-//		<input type="text" class="input-text" name="billing_first_name" id="kind_of_name" value="' . esc_attr( $billing_first_name ) . '" />
-//	</p>';
-//
-//    // поле "Фамилия"
-//    $billing_last_name = ! empty( $_POST[ 'billing_last_name' ] ) ? $_POST[ 'billing_last_name' ] : '';
-//    echo '<p class="form-row form-row-last">
-//		<label for="kind_of_l_name">Фамилия <span class="required">*</span></label>
-//		<input type="text" class="input-text" name="billing_last_name" id="kind_of_l_name" value="' . esc_attr( $billing_last_name ) . '" />
-//	</p>';
+add_filter( 'woocommerce_registration_errors', 'saturblade_validate_registration',1  );
 
-    // чтобы всё не съехало, ведь у нас "на флоатах"
-//    echo '<div class="clear"></div>';
+function saturblade_validate_registration( $errors ) {
 
+//    wc_add_notice( 'Ваш нужно принять политику конфиденциальности.', 'notice' );
+    if ( strcmp( $_POST['password'], $_POST['password2'] ) !== 0 ) {
+        $errors->add( 'name_err', '<strong>Ошибка</strong>: Несовпадают пароли' );
+    }
+    return $errors;
 }
-// Добавьте код ниже в файл functions.php вашей темы для добавления поля подтверждения пароля в форме регистрации на странице Мой профиль.
-//add_filter('woocommerce_registration_errors', 'registration_errors_validation', 10,3);
-//function registration_errors_validation($reg_errors, $sanitized_user_login, $user_email) {
-//    global $woocommerce;
-//    extract( $_POST );
-//
-//    if ( strcmp( $password, $password2 ) !== 0 ) {
-//        return new WP_Error( 'registration-error', __( 'Пароли не совпадают.', 'woocommerce' ) );
-//    }
-//    return $reg_errors;
-//}
-

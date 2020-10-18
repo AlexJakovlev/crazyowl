@@ -1,14 +1,17 @@
 <?php
+
 ?>
 <h2><?php esc_html_e('Register', 'woocommerce');
  ?></h2>
 
 <form method="post"
       class="woocommerce-form woocommerce-form-register register" <?php do_action('woocommerce_register_form_tag'); ?> >
-    <div><?php esc_html_e('Register', 'woocommerce');
+    <div><?php do_action( 'woocommerce_before_customer_login_form' ) ?>
+        <?php esc_html_e('Register', 'woocommerce');
         ?>
-    <?php do_action('woocommerce_register_form_start'); ?>
+
     <a href="<?php echo esc_url( home_url( '/' ) ) ?>">х</a></div>
+    <?php do_action('woocommerce_register_form_start'); ?>
     <?php if ('no' === get_option('woocommerce_registration_generate_username')) : ?>
 
         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
@@ -50,7 +53,7 @@
         </p>
         <p class="form-row form-row-first">
             <label for="kind_of_name">Promocode <span class="required">*</span></label>
-            <input type="text" class="input-text" name="billing_first_name" id="kind_of_name" value="" />
+            <input type="text" class="input-text" name="Promocode" id="promocode" value="" />
         </p>
     <?php else : ?>
 
@@ -70,5 +73,4 @@
     <?php do_action('woocommerce_register_form_end'); ?>
 
 </form>
-
-
+<?php
