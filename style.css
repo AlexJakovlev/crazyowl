@@ -1401,3 +1401,14 @@ h2 {
 		margin-left: 20px;
 	}
 }
+
+
+/*----------------------*/
+
+body.woocommerce-account,
+.col2-set .col-1, .col2-set .col-1,
+.col2-set .col-2, .col2-set .col-2
+{
+	flex: none !important;
+	max-width: 100% !important;
+}
