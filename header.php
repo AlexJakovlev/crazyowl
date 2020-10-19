@@ -36,27 +36,17 @@
                 </a>
                 <div class="drawer-menu drawer drawer-right slide" aria-hidden="true">
                     <div class="drawer-content drawer-content-scrollable">
-                        <?php wp_nav_menu(array(
-                            'items_wrap' => '<ul id="%1$s" class="%2$s">
-                        <li class="menu-item menu-item_offers"><a href="">NEW OFFERSz</a></li>
-                        <li class="menu-item menu-item_offers"><a href="">HOT OFFERS</a></li>
-                        <li class="menu-item menu-item_offers"><a href="">LIMITED-TIME OFFERS</a></li>
-                        <li class="menu-item menu-item_offers"><a href="">RAIDS, DUNGEONS & MISSIONS</a>
-                           <ul>
-                              <li><a href="">RAIDS</a></li>
-                              <li><a href="">DANGEONS</a></li>
-                              <li><a href="">MISSIONS</a></li>
-                           </ul>
-                        </li>
-                        <li class="menu-item menu-item_offers"><a href="">PVP BOOSTING</a></li>
-                        <li class="menu-item menu-item_offers"><a href="">STORY & POWER LEVELING</a></li>
-                        <li class="menu-item menu-item_offers"><a href="">EXOTIC, PINNACLE & RITUAL WEAPONS</a></li>
-                        <li class="menu-item menu-item_offers"><a href="">SEASON ACTIVITIES</a></li>
-                        <li class="menu-item menu-item_offers"><a href="">MILESTONES & WEEKLY RITUAL</a></li>
-                     %3$s</ul>',
-                            'theme_location' => 'saturblade_main_menu',
-                            'menu_class' => 'header__menu_mobile drawer-body'
-                        )); ?>
+                        <?php
+                        wp_nav_menu(
+                            array(
+                                'container'     => false,
+                                'menu_class'        => 'header__menu_mobile drawer-body',
+                                'depth'         => 2,
+                                'walker'        => new saturblade_walker_nav_menu ,
+                                'theme_location' => 'Saturblade Mobi Menu',
+                                'menu' => 'Saturblade Sidebar Menu'
+                            )
+                        ) ?>
                     </div>
                 </div>
             </div>
@@ -88,19 +78,14 @@
                  class="sidebar-logo">
         </a>
 <?php
-
-$args = array(
-    'theme_location'    => 'saturblade_sidebar_menu',
+wp_nav_menu(array(
+    'theme_location' => 'saturblade_sidebar_menu',
+    'menu_class' => 'header__menu_mobile',
     'container'     => false,
-    'menu_class'        => 'header__menu_mobile',
-    'echo'          => true,
-    'items_wrap'        => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-    'depth'         => 2,
-    'walker'        => new saturblade_walker_nav_menu
-);
-
-// print menu
-wp_nav_menu( $args );?>
+    'walker'        => new saturblade_walker_nav_menu,
+    'depth'         => 2
+));
+?>
     </aside>
 <!--    <ul class="header__menu_mobile">-->
 <!--        <li class="menu-item menu-item_offers"><a href="">NEW OFFERS</a></li>-->

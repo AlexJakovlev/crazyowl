@@ -35,7 +35,8 @@ function saturblade_config() {
     register_nav_menus(
         array(
             'saturblade_main_menu' => 'Saturblade Main Menu',
-            'saturblade_sidebar_menu' => 'Saturblade Sidebar Menu'
+            'saturblade_sidebar_menu' => 'Saturblade Sidebar Menu',
+            'saturblade_mobi_menu' => 'Saturblade Sidebar Menu'
         )
     );
     add_theme_support( 'woocommerce' );
@@ -81,4 +82,15 @@ function saturblade_validate_registration( $errors ) {
         $errors->add( 'name_err', '<strong>Ошибка</strong>: Несовпадают пароли' );
     }
     return $errors;
+}
+add_action( 'woocommerce_created_customer', 'saturblade_register_save_fields', 25 );
+
+function saturblade_register_save_fields( $user_id )
+{
+    if ( isset( $_POST[ 'kind_of_name' ] ) ) {
+        update_user_meta( $user_id, 'first_name', sanitize_text_field( $_POST['kind_of_name'] ) );
+    }
+    if ( isset( $_POST[ 'promocode' ] ) ) {
+        update_user_meta( $user_id, 'promocode', sanitize_text_field( $_POST['promocode'] ) );
+    }
 }
