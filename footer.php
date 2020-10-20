@@ -19,7 +19,8 @@
          </ul>
       </div>
       <div class="main-footer">
-         <nav class="main-footer__item">
+          <?php dynamic_sidebar( 1 ) ?>
+          <nav class="main-footer__item">
             <h6 class="main-footer__item-header">Site Map</h6>
             <ul class="main-footer__item-list">
                <li class="main-footer__item-list-item"><a href="#">About Us</a></li>
