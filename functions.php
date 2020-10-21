@@ -131,9 +131,11 @@ function crazyowl_woocomerce_shop_loop_show_variation()
         //получаем варианты
 
         $available_variations = $product->get_available_variations();
+//        print_r($available_variations);
         echo '<select name="" id="" class="products__description-select">';
         foreach ($available_variations as $key => $value) {
-       echo '<option value="Dungeon master">Dungeon master</option>';
+        $attribute=$value['attributes']['attribute_class'];
+       echo '<option value="'.$attribute.'">'.$attribute.'</option>';
         }
         echo '</select>';
     }
@@ -179,3 +181,5 @@ add_action( 'woocommerce_process_product_meta', 'crazyowl_woocomerce_product_sav
 function crazyowl_woocomerce_product_save_Urgency_checkbox( $id, $post ){
     update_post_meta( $id, 'Urgency', isset( $_POST[ 'Urgency' ] ) ? 'yes' : 'no' );
 }
+
+
