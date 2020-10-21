@@ -182,4 +182,35 @@ function crazyowl_woocomerce_product_save_Urgency_checkbox( $id, $post ){
     update_post_meta( $id, 'Urgency', isset( $_POST[ 'Urgency' ] ) ? 'yes' : 'no' );
 }
 
-
+//add_filter( 'woocommerce_loop_add_to_cart_link', 'custom_product_link' );
+//function custom_product_link( $link ) {
+//    global $product;
+//    echo '<a href="идфидф" id="crazyowl-loop-add-card" class="button product_type_simple add_to_cart_button">Подробнее</a>';
+//}
+//add_action('woocommerce_loop_add_to_cart_link', 'my_action_javascript', 99);
+//function my_action_javascript() {
+//    ?>
+<!--    <script>-->
+<!--        jQuery(document).ready(function($) {-->
+<!--            var data = {-->
+<!--                action: 'my_action',-->
+<!--                whatever: 1234-->
+<!--            };-->
+<!---->
+<!--            // с версии 2.8 'ajaxurl' всегда определен в админке-->
+<!--            jQuery.post( ajaxurl, data, function(response) {-->
+<!--                alert('Получено с сервера: ' + response);-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+<!--    --><?php
+//}
+//add_action( 'wp_ajax_my_action', 'my_action_callback' );
+//function my_action_callback() {
+//    $whatever = intval( $_POST['whatever'] );
+//
+//    $whatever += 10;
+//    echo $whatever;
+//
+//    wp_die(); // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
+//}
