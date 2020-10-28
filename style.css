@@ -1178,7 +1178,7 @@ h2 {
 	.woocommerce .products__item-labels {
 		align-self: flex-end;
 		position: absolute;
-		top: -240px;
+		/*top: -240px;*/
 	}
 	.woocommerce .products__item-label {
 		border-radius: 5px;
@@ -1411,4 +1411,8 @@ body.woocommerce-account,
 {
 	flex: none !important;
 	max-width: 100% !important;
+}
+
+.requirements {
+	display: none;
 }
