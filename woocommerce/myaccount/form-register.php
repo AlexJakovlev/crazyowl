@@ -76,4 +76,3 @@
         <?php do_action('woocommerce_register_form_end'); ?>
 
     </form>
-<?php

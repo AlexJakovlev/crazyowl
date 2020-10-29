@@ -1147,13 +1147,13 @@ h2 {
 		padding: 20px 8px 0 8px;
 	}
 	.woocommerce .products__img {
-		width: 100%;
+		width: 100% !important;
 		height: 250px;
 		border-radius: 0;
 	}
 	.woocommerce .products__item-price {
 		position: absolute;
-		top: 0;
+		top: -25px;
 		left: 50%;
 		padding: 0 10px;
 		border: none;
@@ -1415,4 +1415,10 @@ body.woocommerce-account,
 
 .requirements {
 	display: none;
+}
+.woocommerce-product-gallery__image{
+	height: 250px;
+}
+.woocommerce div.products div.product a img {
+	height: 100%;
 }

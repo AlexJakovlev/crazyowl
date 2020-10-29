@@ -24,9 +24,9 @@ if ( empty( $product ) || ! $product->is_visible() ) {
     return;
 }
 ?>
-<li <?php wc_product_class( 'products__item', $product ); ?> id="<?php echo $product->get_id();  ?>">
+<div <?php wc_product_class( 'products__item', $product ); ?> id="<?php echo $product->get_id();  ?>">
     <?php
    $type = $product->get_type() === 'variable' ?  'v_' : '';
 do_action('crazyowl_woocomerce_shop_'.$type.'loop');
     ?>
-</li>
+</div>

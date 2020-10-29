@@ -1,5 +1,5 @@
 jQuery(document).ready(($) => {
-    const products = $("li.products__item.product-type-variable");
+    const products = $("div.products__item.product-type-variable");
     const speeds = $(".requirements input");
     Array.prototype.filter.call(products, (product) => {
         const select = (product.getElementsByTagName('select'));
@@ -43,7 +43,6 @@ jQuery(document).ready(($) => {
                 href = href.replace("&speed", "");
                 $(button).attr('href', href);
             }
-            console.log("hui");
         });
     });
 });
