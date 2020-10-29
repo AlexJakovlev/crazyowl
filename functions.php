@@ -404,7 +404,6 @@ function crazyowl_dropdown_variation_attribute_options( $args = array() ) {
         )
     );
 
-<<<<<<< HEAD
     // Get selected value.
     if ( false === $args['selected'] && $args['attribute'] && $args['product'] instanceof WC_Product ) {
         $selected_key = 'attribute_' . sanitize_title( $args['attribute'] );
@@ -479,7 +478,7 @@ function crazyowl_dropdown_variation_attribute_options( $args = array() ) {
     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     echo apply_filters( 'woocommerce_dropdown_variation_attribute_options_html', $html, $args );
 }
-=======
+
 //add_filter( 'woocommerce_loop_add_to_cart_link', 'custom_product_link' );
 //function custom_product_link( $link ) {
 //    global $product;
@@ -512,4 +511,4 @@ function crazyowl_dropdown_variation_attribute_options( $args = array() ) {
 //
 //    wp_die(); // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
 //}
->>>>>>> main
+
