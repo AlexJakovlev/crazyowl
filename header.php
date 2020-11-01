@@ -60,6 +60,16 @@
                     'theme_location' => 'saturblade_main_menu',
                     'menu_class' => 'header__menu'
                 )); ?>
+
+                <div class="s-header__basket-wr woocommerce">
+                    <?php
+                    global $woocommerce; ?>
+                    <a href="<?php echo wc_get_cart_url() ?>" class="basket-btn basket-btn_fixed-xs">
+<!--                        <span class="basket-btn__label">Корзина</span>-->
+                        <span class="basket-btn__counter"><?php echo sprintf($woocommerce->cart->cart_contents_count); ?></span>
+                    </a>
+                </div>
+
                 <?php if (class_exists('WooCommerce')): ?>
                     <ul>
                         <li>

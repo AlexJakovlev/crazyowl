@@ -10,7 +10,9 @@
 
 require_once get_template_directory() . '/inc/customizer.php';
 require_once get_template_directory() . '/inc/saturblade_walker_nav_menu.php';
-require_once get_template_directory() . '/inc/Widget_Link.php';
+require_once get_template_directory() . '/inc/crazyowl-sidebars.php';
+require_once get_template_directory() . '/inc/link-widget.php';
+
 
 function saturblade_scripts()
 {
@@ -74,8 +76,24 @@ function my_account_menu_order()
     );
     return $menuOrder;
 }
-
 add_filter('woocommerce_account_menu_items', 'my_account_menu_order');
+
+
+// вывод колвр товваров в корзине в хедере AJAX
+add_filter('woocommerce_add_to_cart_fragments', 'header_add_to_cart_fragment');
+
+function header_add_to_cart_fragment( $fragments ) {
+    global $woocommerce;
+    ob_start();
+    ?>
+    <span class="basket-btn__counter">(<?php echo sprintf($woocommerce->cart->cart_contents_count); ?>)</span>
+    <?php
+    $fragments['.basket-btn__counter'] = ob_get_clean();
+    return $fragments;
+}
+
+
+
 
 function remove_admin_bar()
 {
@@ -84,23 +102,6 @@ function remove_admin_bar()
 
 add_action('after_setup_theme', 'remove_admin_bar');
 
-//-------------SIDE BAR -----------------
-add_action('widgets_init', 'register_my_widgets');
-function register_my_widgets()
-{
-    register_sidebar(array(
-        'name' => sprintf(__('Sidebar %d'), 1),
-        'id' => "sidebar-1",
-        'description' => '',
-        'class' => '',
-        'before_widget' => '<li id="%1$s" class="widget %2$s">',
-        'after_widget' => "</li>\n",
-        'before_title' => '<h2 class="widgettitle">',
-        'after_title' => "</h2>\n",
-    ));
-}
-
-//--------------------------
 add_filter('woocommerce_registration_errors', 'saturblade_validate_registration', 1);
 
 function saturblade_validate_registration($errors)
@@ -235,7 +236,7 @@ function wpspec_show_product_description()
     global $product;
     echo ' <p class="products__description-text">' . get_the_excerpt() . '</p>';
 
-    echo '<div style="display: none"><p class="form-field Urgency_field ">
+    echo '<div ><p class="form-field Urgency_field ">
 		<label for="Urgency">This product have requirements</label>
 		<span class="woocommerce-help-tip"></span>
 		<input id="speed-'.$product->get_id().'" type="checkbox" class="checkbox" style="" name="Urgency" id="Urgency" >Срочность выполнения </p></div>';
@@ -248,41 +249,6 @@ function my_woocommerce_variable_price_html($price, $product)
 {
     return 'От &nbsp' . wc_price($product->get_price());
 }
-//
-//
-//add_action( 'woocommerce_variation_options_pricing', 'crazyowl_woocomerce_product_cart_Urgency_checkbox',1,3 );
-//
-//function crazyowl_woocomerce_product_cart_Urgency_checkbox($i, $variation_data, $variation) {
-//
-//    echo '<div class="option_group">';
-//
-//    woocommerce_wp_checkbox( array(
-//        'id'      => 'Urgency',
-//        'value'   => get_post_meta( get_the_ID(), 'Urgency', true ),
-//        'label'   => ' Срочность',
-//        'description' => 'Есть ли возможность выполнить заказ срочно',
-//        'desc_tip' => true
-//    ) );
-//    woocommerce_wp_text_input(
-//        array(
-//            'id' => 'speed_field[' . $i . ']',
-//            'class' => 'short',
-//            'wrapper_class' => 'form-row',
-//            'label' => '+ к цене за строчность',
-//            'value' => get_post_meta( $variation->ID, 'price_add_speed_field', true )
-//        )
-//    );
-//    echo '</div>';
-//
-//}
-//
-//add_action( 'woocommerce_save_product_variation', 'crazyowl_woocomerce_product_save_Urgency_checkbox', 20, 2 );
-//
-//function crazyowl_woocomerce_product_save_Urgency_checkbox( $id, $post ){
-//    update_post_meta( $id, 'Urgency', isset( $_POST[ 'Urgency' ] ) ? 'yes' : 'no' );
-//    update_post_meta( $id, 'price_add', isset( $_POST[ 'price_add' ] ) ? $_POST[ 'price_add' ] : 0 );
-//}
-
 
 /////////////////////// TODO   LOOP  products SHOP
 
@@ -478,37 +444,4 @@ function crazyowl_dropdown_variation_attribute_options( $args = array() ) {
     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     echo apply_filters( 'woocommerce_dropdown_variation_attribute_options_html', $html, $args );
 }
-
-//add_filter( 'woocommerce_loop_add_to_cart_link', 'custom_product_link' );
-//function custom_product_link( $link ) {
-//    global $product;
-//    echo '<a href="идфидф" id="crazyowl-loop-add-card" class="button product_type_simple add_to_cart_button">Подробнее</a>';
-//}
-//add_action('woocommerce_loop_add_to_cart_link', 'my_action_javascript', 99);
-//function my_action_javascript() {
-//    ?>
-    <!--    <script>-->
-    <!--        jQuery(document).ready(function($) {-->
-    <!--            var data = {-->
-    <!--                action: 'my_action',-->
-    <!--                whatever: 1234-->
-    <!--            };-->
-    <!---->
-    <!--            // с версии 2.8 'ajaxurl' всегда определен в админке-->
-    <!--            jQuery.post( ajaxurl, data, function(response) {-->
-    <!--                alert('Получено с сервера: ' + response);-->
-    <!--            });-->
-    <!--        });-->
-    <!--    </script>-->
-    <!--    --><?php
-//}
-//add_action( 'wp_ajax_my_action', 'my_action_callback' );
-//function my_action_callback() {
-//    $whatever = intval( $_POST['whatever'] );
-//
-//    $whatever += 10;
-//    echo $whatever;
-//
-//    wp_die(); // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
-//}
 

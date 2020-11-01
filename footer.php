@@ -11,6 +11,7 @@
 
    <footer class="footer">
       <div class="top-footer">
+          <?php dynamic_sidebar( 'footer_1' ) ?>
          <ul class="top-footer__menu">
             <li class="top-footer__menu-item">Пользовательское соглашение</li>
             <li class="top-footer__menu-item">Гарантии</li>
@@ -19,7 +20,7 @@
          </ul>
       </div>
       <div class="main-footer">
-          <?php dynamic_sidebar( 1 ) ?>
+
           <nav class="main-footer__item">
             <h6 class="main-footer__item-header">Site Map</h6>
             <ul class="main-footer__item-list">

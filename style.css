@@ -1422,3 +1422,31 @@ body.woocommerce-account,
 .woocommerce div.products div.product a img {
 	height: 100%;
 }
+
+.s-header__basket-wr {
+	position: relative;
+}
+
+.basket-btn {
+	display: inline-block;
+	max-width: 100%;
+	font-family: sans-serif;
+	font-size: 16px;
+	color: white;
+	font-weight: bold;
+	background-repeat: no-repeat;
+	background-position: 9px center;
+	background-size: 25px 25px;
+	background-image: url("./assets/img/ico-basket.png");
+	border-radius: 20px;
+	padding-left: 43px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	padding-right: 19px;
+}
+.basket-btn__counter {
+	top: -7px;
+	left: 30px;
+	position: absolute;
+	color: red;
+}
