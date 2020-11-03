@@ -45,7 +45,7 @@ function saturblade_config()
         array(
             'saturblade_main_menu' => 'Saturblade Main Menu',
             'saturblade_sidebar_menu' => 'Saturblade Sidebar Menu',
-            'saturblade_mobi_menu' => 'Saturblade Sidebar Menu'
+            'saturblade_mobi_menu' => 'Saturblade Mobi Menu'
         )
     );
     add_theme_support('woocommerce');
@@ -445,3 +445,10 @@ function crazyowl_dropdown_variation_attribute_options( $args = array() ) {
     echo apply_filters( 'woocommerce_dropdown_variation_attribute_options_html', $html, $args );
 }
 
+// fix bug -- вывод в кастомайзере
+add_filter('wp_nav_menu_args', function ($args) {
+    if (isset($args['walker']) && is_string($args['walker']) && class_exists($args['walker'])) {
+        $args['walker'] = new $args['walker'];
+    }
+    return $args;
+}, 1001);

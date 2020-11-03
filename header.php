@@ -42,11 +42,12 @@
                                 'container'     => false,
                                 'menu_class'        => 'header__menu_mobile drawer-body',
                                 'depth'         => 2,
-                                'walker'        => new saturblade_walker_nav_menu ,
-                                'theme_location' => 'Saturblade Mobi Menu',
-                                'menu' => 'Saturblade Sidebar Menu'
+                                'walker'        => 'saturblade_walker_nav_menu' ,
+                                'theme_location' => 'saturblade_mobi_menu',
+//                                'menu' => 'Saturblade Mobi Menu'
                             )
-                        ) ?>
+                        )
+                        ?>
                     </div>
                 </div>
             </div>
@@ -92,7 +93,7 @@ wp_nav_menu(array(
     'theme_location' => 'saturblade_sidebar_menu',
     'menu_class' => 'header__menu_mobile',
     'container'     => false,
-    'walker'        => new saturblade_walker_nav_menu,
+    'walker'        => 'saturblade_walker_nav_menu',
     'depth'         => 2
 ));
 ?>
