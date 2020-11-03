@@ -11,7 +11,7 @@
 
    <footer class="footer">
       <div class="top-footer">
-          <?php dynamic_sidebar( 'footer_1' ) ?>
+          <?php dynamic_sidebar( 'Top-footer' ) ?>
          <ul class="top-footer__menu">
             <li class="top-footer__menu-item">Пользовательское соглашение</li>
             <li class="top-footer__menu-item">Гарантии</li>
@@ -23,6 +23,7 @@
 
           <nav class="main-footer__item">
             <h6 class="main-footer__item-header">Site Map</h6>
+              <?php dynamic_sidebar( 'footer-1' ) ?>
             <ul class="main-footer__item-list">
                <li class="main-footer__item-list-item"><a href="#">About Us</a></li>
                <li class="main-footer__item-list-item"><a href="#">How it works</a></li>
@@ -34,6 +35,7 @@
             <h6 class="main-footer__item-header">
                <a href="<?php echo get_permalink( wc_get_page_id( 'shop' ) ) ?>">Shop</a>
             </h6>
+             <?php dynamic_sidebar( 'footer-2' ) ?>
             <ul class="main-footer__item-list">
                <li class="main-footer__item-list-item"><a href="#">"Conqueror" Triumph Seal</a></li>
                <li class="main-footer__item-list-item"><a href="#">"Flawless" Triumph Seal</a></li>
@@ -54,6 +56,7 @@
          </nav>
          <nav class="main-footer__item">
             <h6 class="main-footer__item-header">Contact Us</h6>
+             <?php dynamic_sidebar( 'footer-3' ) ?>
             <ul class="main-footer__item-list">
                <li class="main-footer__item-list-item">Satur.Boost@mail.com</li>
                <li class="main-footer__item-list-item">+7(981)986-30-60</li>

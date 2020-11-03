@@ -55,6 +55,8 @@ function saturblade_config()
     if (!isset($content_width)) {
         $content_width = 600;
     }
+
+    add_theme_support( 'customize-selective-refresh-widgets' );
 }
 
 add_action('after_setup_theme', 'saturblade_config', 0);

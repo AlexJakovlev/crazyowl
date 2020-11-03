@@ -3,8 +3,8 @@ function true_register_wp_sidebars() {
     /* В подвале - первый сайдбар */
     register_sidebar(
         array(
-            'id' => 'header_1', // уникальный id
-            'name' => 'Хедер 1', // название сайдбара
+            'id' => 'Top-footer', // уникальный id
+            'name' => 'TOP footer', // название сайдбара
             'description' => 'Перетащите сюда виджеты, чтобы добавить их в сайдбар.', // описание
             'before_widget' => '<div id="%1$s" class="side widget %2$s">', // по умолчанию виджеты выводятся <li>-списком
             'after_widget' => '</div>',
@@ -15,7 +15,7 @@ function true_register_wp_sidebars() {
     /* В подвале - первый сайдбар */
     register_sidebar(
         array(
-            'id' => 'footer_1', // уникальный id
+            'id' => 'footer-1', // уникальный id
             'name' => 'Футер 1', // название сайдбара
             'description' => 'Перетащите сюда виджеты, чтобы добавить их в сайдбар.', // описание
             'before_widget' => '<div id="%1$s" class="side widget %2$s">', // по умолчанию виджеты выводятся <li>-списком
@@ -28,7 +28,7 @@ function true_register_wp_sidebars() {
     /* В подвале - второй сайдбар */
     register_sidebar(
         array(
-            'id' => 'footer_2',
+            'id' => 'footer-2',
             'name' => 'Футер 2',
             'description' => 'Перетащите сюда виджеты, чтобы добавить их в футер.',
             'before_widget' => '<div id="%1$s" class="foot widget %2$s">',
@@ -40,7 +40,7 @@ function true_register_wp_sidebars() {
     /* В подвале - второй сайдбар */
     register_sidebar(
         array(
-            'id' => 'footer_3',
+            'id' => 'footer-3',
             'name' => 'Футер 3',
             'description' => 'Перетащите сюда виджеты, чтобы добавить их в футер.',
             'before_widget' => '<div id="%1$s" class="foot widget %2$s">',
