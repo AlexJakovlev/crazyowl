@@ -1450,3 +1450,7 @@ body.woocommerce-account,
 	position: absolute;
 	color: red;
 }
+
+ul#menu-saturblade-footer-menu > li > a, .top-footer__menu-item > a {
+	color: white;
+}

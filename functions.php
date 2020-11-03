@@ -44,7 +44,9 @@ function saturblade_config()
         array(
             'saturblade_main_menu' => 'Saturblade Main Menu',
             'saturblade_sidebar_menu' => 'Saturblade Sidebar Menu',
-            'saturblade_mobi_menu' => 'Saturblade Mobi Menu'
+            'saturblade_mobi_menu' => 'Saturblade Mobi Menu',
+            'saturblade_futer_menu' => 'Saturblade Footer Menu',
+
         )
     );
     add_theme_support('woocommerce');
