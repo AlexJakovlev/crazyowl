@@ -54,6 +54,7 @@
     </header>
     <header class="header header_desktop">
         <div class="header-wrapper wrapper">
+            <?php dynamic_sidebar( 'header' ) ?>
             <div class="search">Search</div>
             <div class="menu-wrapper">
                 <?php wp_nav_menu(array(
