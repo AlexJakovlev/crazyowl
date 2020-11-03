@@ -39,12 +39,11 @@
                         <?php
                         wp_nav_menu(
                             array(
-                                'container'     => false,
-                                'menu_class'        => 'header__menu_mobile drawer-body',
-                                'depth'         => 2,
-                                'walker'        => 'saturblade_walker_nav_menu' ,
+                                'container' => false,
+                                'menu_class' => 'header__menu_mobile drawer-body',
+                                'depth' => 2,
+                                'walker' => 'saturblade_walker_nav_menu',
                                 'theme_location' => 'saturblade_mobi_menu',
-//                                'menu' => 'Saturblade Mobi Menu'
                             )
                         )
                         ?>
@@ -61,16 +60,15 @@
                     'theme_location' => 'saturblade_main_menu',
                     'menu_class' => 'header__menu'
                 )); ?>
-
-                <div class="s-header__basket-wr woocommerce">
-                    <?php
-                    global $woocommerce; ?>
-                    <a href="<?php echo wc_get_cart_url() ?>" class="basket-btn basket-btn_fixed-xs">
-<!--                        <span class="basket-btn__label">Корзина</span>-->
-                        <span class="basket-btn__counter"><?php echo sprintf($woocommerce->cart->cart_contents_count); ?></span>
-                    </a>
-                </div>
-
+                <?php if (is_user_logged_in()) { ?>
+                    <div class="s-header__basket-wr woocommerce">
+                        <?php
+                        global $woocommerce; ?>
+                        <a href="<?php echo wc_get_cart_url() ?>" class="basket-btn basket-btn_fixed-xs">
+                            <span class="basket-btn__counter"><?php echo sprintf($woocommerce->cart->cart_contents_count); ?></span>
+                        </a>
+                    </div>
+                <?php } ?>
                 <?php if (class_exists('WooCommerce')): ?>
                     <ul>
                         <li>
@@ -88,30 +86,13 @@
             <img src="<?php bloginfo('template_directory'); ?>/assets/img/logo.png" alt="saturblade logo"
                  class="sidebar-logo">
         </a>
-<?php
-wp_nav_menu(array(
-    'theme_location' => 'saturblade_sidebar_menu',
-    'menu_class' => 'header__menu_mobile',
-    'container'     => false,
-    'walker'        => 'saturblade_walker_nav_menu',
-    'depth'         => 2
-));
-?>
+        <?php
+        wp_nav_menu(array(
+            'theme_location' => 'saturblade_sidebar_menu',
+            'menu_class' => 'header__menu_mobile',
+            'container' => false,
+            'walker' => 'saturblade_walker_nav_menu',
+            'depth' => 2
+        ));
+        ?>
     </aside>
-<!--    <ul class="header__menu_mobile">-->
-<!--        <li class="menu-item menu-item_offers"><a href="">NEW OFFERS</a></li>-->
-<!--        <li class="menu-item menu-item_offers"><a href="">HOT OFFERS</a></li>-->
-<!--        <li class="menu-item menu-item_offers"><a href="">LIMITED-TIME OFFERS</a></li>-->
-<!--        <li class="menu-item menu-item_offers"><a href="">RAIDS, DUNGEONS &amp; MISSIONS</a>-->
-<!--            <ul>-->
-<!--                <li><a href="">RAIDS</a></li>-->
-<!--                <li><a href="">DANGEONS</a></li>-->
-<!--                <li><a href="">MISSIONS</a></li>-->
-<!--            </ul>-->
-<!--        </li>-->
-<!--        <li class="menu-item menu-item_offers"><a href="">PVP BOOSTING</a></li>-->
-<!--        <li class="menu-item menu-item_offers"><a href="">STORY &amp; POWER LEVELING</a></li>-->
-<!--        <li class="menu-item menu-item_offers"><a href="">EXOTIC, PINNACLE &amp; RITUAL WEAPONS</a></li>-->
-<!--        <li class="menu-item menu-item_offers"><a href="">SEASON ACTIVITIES</a></li>-->
-<!--        <li class="menu-item menu-item_offers"><a href="">MILESTONES &amp; WEEKLY RITUAL</a></li>-->
-<!--    </ul>-->
