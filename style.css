@@ -1153,7 +1153,7 @@ h2 {
 	}
 	.woocommerce .products__item-price {
 		position: absolute;
-		top: -25px;
+		top: -100%;
 		left: 50%;
 		padding: 0 10px;
 		border: none;
@@ -1453,4 +1453,13 @@ body.woocommerce-account,
 
 ul#menu-saturblade-footer-menu > li > a, .top-footer__menu-item > a {
 	color: white;
+}
+
+.woocommerce-LoopProduct-link {
+	position: relative;
+}
+.products__item-labels {
+	position: absolute;
+	right: 0;
+	top: 0;
 }

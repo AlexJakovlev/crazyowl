@@ -29,7 +29,7 @@ function saturblade_scripts()
     wp_enqueue_script('my-script', get_template_directory_uri() . '/inc/my_script.js',
         array('jquery'), time(), 'in_footer');
     // Custom styles
-    wp_enqueue_style('saturblade-style', get_stylesheet_uri(), array(),
+    wp_enqueue_style('saturblade-style', get_stylesheet_uri(), array('google-fonts'),
         filemtime(get_template_directory() . '/style.css'), 'all');
     // Google Fonts
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
@@ -43,7 +43,7 @@ function saturblade_config()
             'saturblade_main_menu' => 'Saturblade Main Menu',
             'saturblade_sidebar_menu' => 'Saturblade Sidebar Menu',
             'saturblade_mobi_menu' => 'Saturblade Mobi Menu',
-            'saturblade_futer_menu' => 'Saturblade Footer Menu',
+            'saturblade_footer_menu' => 'Saturblade Footer Menu',
 
         )
     );

@@ -37,10 +37,12 @@ function saturblade_register_save_fields($user_id)
 }
 
 // TODO вывод цены мин цены если распродвжа
-//function my_woocommerce_variable_price_html($price, $product)
-//{
-//    return 'От ' . wc_price($product->get_price());
-//}
+function my_woocommerce_variable_price_html($price, $product)
+{
+    if ($product->is_variable()){
+    return 'От ' . wc_price($product->get_price());
+    }
+}
 
 // TODO АРХИВ спец поле в в товаре
 
@@ -91,26 +93,64 @@ function saturblade_register_save_fields($user_id)
 
 // TODO   LOOP  products SHOP
 
-//add_filter('woocommerce_sale_flash','item_label');
-//function crazyowl_show_product_sale_flash(){
-//    global $product;
-//    echo '<span class="products__item-labels">
-//                           <span class="products__item-label products__item-label_new">New</span>';
-//    if ($product->is_on_sale()) {
-//        echo   '<span class="products__item-label products__item-label_hot"><i class="far fa-clock"></i></span>';
-//    }
-//    echo '</span>';
-//}
-//
-//function crazyowl_show_product_images()
-//{
-//    wc_get_template('single-product/archive-product-image.php');
-//}
-//
-//function crazyowl_single_price()
-//{
-//    wc_get_template('single-product/archive-price.php');
-//}
+function saturblade_show_product_sale_flash(){
+    global $product;
+    echo '<span class="products__item-labels">
+<span class="products__item-label products__item-label_new">hott</span>
+                           <span class="products__item-label products__item-label_new">New</span>';
+    if ($product->is_on_sale()) {
+        echo   '<span class="products__item-label products__item-label_hot"><i class="far fa-clock"></i></span>';
+    }
+    echo '</span>';
+}
+
+
+// Вывод картинок(и) товара в LOOP'e
+function saturblade_show_product_images()
+{
+    wc_get_template('single-product1/archive-product-image.php');
+}
+// TODO вывод галереи
+function crazyowl_get_gallery_image_html( $attachment_id, $main_image = false ) {
+    $flexslider        = (bool) apply_filters( 'woocommerce_single_product_flexslider_enabled', get_theme_support( 'wc-product-gallery-slider' ) );
+    $gallery_thumbnail = wc_get_image_size( 'gallery_thumbnail' );
+    $thumbnail_size    = apply_filters( 'woocommerce_gallery_thumbnail_size', array( $gallery_thumbnail['width'], $gallery_thumbnail['height'] ) );
+    $image_size        = apply_filters( 'woocommerce_gallery_image_size', $flexslider || $main_image ? 'woocommerce_single' : $thumbnail_size );
+    $full_size         = apply_filters( 'woocommerce_gallery_full_size', apply_filters( 'woocommerce_product_thumbnails_large_size', 'full' ) );
+    $thumbnail_src     = wp_get_attachment_image_src( $attachment_id, $thumbnail_size );
+    $full_src          = wp_get_attachment_image_src( $attachment_id, $full_size );
+    $alt_text          = trim( wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) ) );
+    $image             = wp_get_attachment_image(
+        $attachment_id,
+        $image_size,
+        false,
+        apply_filters(
+            'woocommerce_gallery_image_html_attachment_image_params',
+            array(
+                'title'                   => _wp_specialchars( get_post_field( 'post_title', $attachment_id ), ENT_QUOTES, 'UTF-8', true ),
+                'data-caption'            => _wp_specialchars( get_post_field( 'post_excerpt', $attachment_id ), ENT_QUOTES, 'UTF-8', true ),
+                'data-src'                => esc_url( $full_src[0] ),
+                'data-large_image'        => esc_url( $full_src[0] ),
+                'data-large_image_width'  => esc_attr( $full_src[1] ),
+                'data-large_image_height' => esc_attr( $full_src[2] ),
+                'class'                   => esc_attr( $main_image ? 'wp-post-image' : '' ),
+            ),
+            $attachment_id,
+            $image_size,
+            $main_image
+        )
+    );
+
+    return '<div data-thumb="' . esc_url( $thumbnail_src[0] ) . '" data-thumb-alt="' . esc_attr( $alt_text ) . '" class="woocommerce-product-gallery__image products__img"><div class="products__img">' . $image . '</div></div>';
+}
+function saturblade_single_price()
+{
+    global $product;
+   ?>
+<span class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'products__item-price' ) ); ?>"><?php echo $product->get_price(); ?></span>
+<?php
+//wc_get_template('single-product1/archive-price.php');
+}
 //function crazy_single_title(){
 //    wc_get_template('single-product/archive-title.php');
 //
