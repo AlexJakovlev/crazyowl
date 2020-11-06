@@ -1178,7 +1178,7 @@ h2 {
 	.woocommerce .products__item-labels {
 		align-self: flex-end;
 		position: absolute;
-		/*top: -240px;*/
+		top: -240px;
 	}
 	.woocommerce .products__item-label {
 		border-radius: 5px;
@@ -1462,4 +1462,8 @@ ul#menu-saturblade-footer-menu > li > a, .top-footer__menu-item > a {
 	position: absolute;
 	right: 0;
 	top: 0;
+}
+
+.products__img {
+	margin-bottom: 0!important;
 }
