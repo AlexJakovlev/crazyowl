@@ -12,7 +12,7 @@ require_once get_template_directory() . '/inc/customizer.php';
 require_once get_template_directory() . '/inc/saturblade_walker_nav_menu.php';
 require_once get_template_directory() . '/inc/crazyowl-sidebars.php';
 
-
+//
 function saturblade_scripts()
 {
     //	Bootstrap
