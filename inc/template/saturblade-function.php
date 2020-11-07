@@ -164,6 +164,33 @@ function crazyowl_get_gallery_image_html($attachment_id, $main_image = false)
 
     return '<div data-thumb="' . esc_url($thumbnail_src[0]) . '" data-thumb-alt="' . esc_attr($alt_text) . '" class="woocommerce-product-gallery__image products__img"><div class="products__img">' . $image . '</div></div>';
 }
+
+// TODO вывод вариаций в магазине
+if ( ! function_exists( 'woocommerce_variable_add_to_cart' ) ) {
+
+    /**
+     * Output the variable product add to cart area.
+     */
+    function saturblade_variable_add_to_cart() {
+        global $product;
+
+        // Enqueue variation scripts.
+        wp_enqueue_script( 'wc-add-to-cart-variation' );
+
+        // Get Available variations?
+        $get_variations = count( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
+
+        // Load the template.
+        wc_get_template(
+            'single-product1/add-to-cart/archive-variable.php',
+            array(
+                'available_variations' => $get_variations ? $product->get_available_variations() : false,
+                'attributes'           => $product->get_variation_attributes(),
+                'selected_attributes'  => $product->get_default_attributes(),
+            )
+        );
+    }
+}
 //add_filter('woocommerce_variable_price_html', 'my_woocommerce_variable_price_html', 10, 2);
 //
 //function my_woocommerce_variable_price_html($price, $product)
@@ -253,129 +280,131 @@ function crazyowl_add_to_cart_url() {
     ) : $product->get_permalink();
     return apply_filters( 'woocommerce_product_add_to_cart_url', $url, $product );
 }
-//function crazyowl_dropdown_variation_attribute_options( $args = array() ) {
-//    $args = wp_parse_args(
-//        apply_filters( 'woocommerce_dropdown_variation_attribute_options_args', $args ),
-//        array(
-//            'options_meta'     => false,
-//            'options'          => false,
-//            'attribute'        => false,
-//            'product'          => false,
-//            'selected'         => false,
-//            'name'             => '',
-//            'id'               => '',
-//            'class'            => '',
-//            'show_option_none' => __( 'Choose an option', 'woocommerce' ),
-//        )
-//    );
-//
-//    // Get selected value.
-//    if ( false === $args['selected'] && $args['attribute'] && $args['product'] instanceof WC_Product ) {
-//        $selected_key = 'attribute_' . sanitize_title( $args['attribute'] );
-//        // phpcs:disable WordPress.Security.NonceVerification.Recommended
-//        $args['selected'] = isset( $_REQUEST[ $selected_key ] ) ? wc_clean( wp_unslash( $_REQUEST[ $selected_key ] ) ) : $args['product']->get_variation_default_attribute( $args['attribute'] );
-//        // phpcs:enable WordPress.Security.NonceVerification.Recommended
-//    }
-//    $option_meta           = $args['options_meta'];
-//    $options               = $args['options'];
-//    $product               = $args['product'];
-//    $attribute             = $args['attribute'];
-//    $name                  = $args['name'] ? $args['name'] : 'attribute_' . sanitize_title( $attribute );
-//    $id                    = $args['id'] ? $args['id'] : sanitize_title( $attribute );
-//    $class                 = $args['class'];
-//    $show_option_none      = (bool) $args['show_option_none'];
-//    $show_option_none_text = $args['show_option_none'] ? $args['show_option_none'] : __( 'Choose an option', 'woocommerce' ); // We'll do our best to hide the placeholder, but we'll need to show something when resetting options.
-//    $show_check_speed      = 0;
-//    $posts = $product->get_visible_children();
-//    $option_meta =         array();
-//    foreach ($posts as $post ){
-//        $c = get_post($post);
-//        $d = $c->post_excerpt;
-//        $speed_field = get_post_meta($post,'speed_field')[0];
-//        $show_check_speed += is_numeric($speed_field) ? 1 : 0;
-//        $option_meta[strtolower(str_replace($attribute.': ','',$d))]= array(
-//            'speed_field' => $speed_field,
-//            'ID' => $post
-//        );
-//    }
-//
-//    if ( empty( $options ) && ! empty( $product ) && ! empty( $attribute ) ) {
-//        $attributes = $product->get_variation_attributes();
-//        $options    = $attributes[ $attribute ];
-//    }
-//
-//    $html  = '<select id="' .esc_attr(  $id ).'-'. $product->get_id(). '" class="' . esc_attr( $class ) . '" name="' . esc_attr( $name ) . '" data-attribute_name="attribute_' . esc_attr( sanitize_title( $attribute ) ) . '" data-show_option_none="' . ( $show_option_none ? 'yes' : 'no' ) . '">';
-//    $html .= '<option value="">' . esc_html( $show_option_none_text ) . '</option>';
-//
-//    if ( ! empty( $options ) ) {
-//        if ( $product && taxonomy_exists( $attribute ) ) {
-//            // Get terms if this is a taxonomy - ordered. We need the names too.
-//            $terms = wc_get_product_terms(
-//                $product->get_id(),
-//                $attribute,
-//                array(
-//                    'fields' => 'all',
-//                )
-//            );
-//
-//            foreach ( $terms as $term ) {
-//                if ( in_array( $term->slug, $options, true ) ) {
-//                    $html .= '<option  value="' .  esc_attr( $term->slug )  . '" ' . selected( sanitize_title( $args['selected'] ), $term->slug, false ) . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $term->name, $term, $attribute, $product ) ).'</option>';
-//                }
-//
-//            }
-//        } else {
-//
-//            foreach ( $options as $option ) {
-//                // This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
-//                $post_id = $option_meta[$option]['ID'];
-//                $post_speed_field = $option_meta[$option]['speed_field'];
-//                $post_speed_field = is_numeric($post_speed_field) ? 'data-speed-price='.$post_speed_field : '';
-//                $data_ext = 'data-post='.$post_id.' '.$post_speed_field ;
-//                $selected = sanitize_title( $args['selected'] ) === $args['selected'] ? selected( $args['selected'], sanitize_title( $option ), false ) : selected( $args['selected'], $option, false );
-//                $html    .= '<option '.$data_ext.' value="' . esc_attr( $option ) . '" ' . $selected . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $option, null, $attribute, $product ) ) . '</option>';
-//            }
-//        }
-//    }
-//
-//    $html .= '</select>';
-//
-//    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-//    echo apply_filters( 'woocommerce_dropdown_variation_attribute_options_html', $html, $args );
-//}
 
-function crazyowl_woocomerce_shop_loop_show_variation()
-{
-    global $product;
 
-//    print_r(wp_get_attachment_image_srcset( $variation_id, $image_size ));
-// если товар вариантивный
-    if ($product->is_type('variable')) {
-        //получаем варианты
-        $available_variations = $product->get_available_variations();
-        echo '<select name="" id="product-variable"  data-id="'.$product->get_id().'" class="products__description-select">';
-        foreach ($available_variations as $key => $value) {
-            $attribute = $value['attributes']['attribute_class'];
-            $variation_id = $value['variation_id'];
-            $post_meta = get_post_meta($variation_id);
+function saturblade_dropdown_variation_attribute_options( $args = array() ) {
+    $args = wp_parse_args(
+        apply_filters( 'woocommerce_dropdown_variation_attribute_options_args', $args ),
+        array(
+            'options_meta'     => false,
+            'options'          => false,
+            'attribute'        => false,
+            'product'          => false,
+            'selected'         => false,
+            'name'             => '',
+            'id'               => '',
+            'class'            => '',
+            'show_option_none' => __( 'Choose an option', 'woocommerce' ),
+        )
+    );
 
-            //         _price
-            //        _thumbnail_id
-            //        speed_field
-            //       _regular_price
-            $price = $post_meta['_price'][0];
-            $thumbnail_url = get_the_post_thumbnail_url($variation_id);
-            $regular_price = $post_meta['_regular_price'][0];
-            $speed_price = $post_meta['speed_field'][0];
-            $speed_price = $speed_price > 0 ? 'data-speed_price="' . $speed_price . '"' : '';
-
-            echo '<option value="' . $attribute .
-                '" data-id="' . $variation_id . '" ' . $speed_price .
-                ' data-thumbnail="' .$thumbnail_url .
-                '" data-price="' . $price .
-                '" data-regular="' . $regular_price . '" >'
-                . $attribute . ' </option>';
-        }
-        echo '</select>';
+    // Get selected value.
+    if ( false === $args['selected'] && $args['attribute'] && $args['product'] instanceof WC_Product ) {
+        $selected_key = 'attribute_' . sanitize_title( $args['attribute'] );
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
+        $args['selected'] = isset( $_REQUEST[ $selected_key ] ) ? wc_clean( wp_unslash( $_REQUEST[ $selected_key ] ) ) : $args['product']->get_variation_default_attribute( $args['attribute'] );
+        // phpcs:enable WordPress.Security.NonceVerification.Recommended
     }
+    $option_meta           = $args['options_meta'];
+    $options               = $args['options'];
+    $product               = $args['product'];
+    $attribute             = $args['attribute'];
+    $name                  = $args['name'] ? $args['name'] : 'attribute_' . sanitize_title( $attribute );
+    $id                    = $args['id'] ? $args['id'] : sanitize_title( $attribute );
+    $class                 = $args['class'];
+    $show_option_none      = (bool) $args['show_option_none'];
+    $show_option_none_text = $args['show_option_none'] ? $args['show_option_none'] : __( 'Choose an option', 'woocommerce' ); // We'll do our best to hide the placeholder, but we'll need to show something when resetting options.
+    $show_check_speed      = 0;
+    $posts = $product->get_visible_children();
+    $option_meta =         array();
+    foreach ($posts as $post ){
+        $c = get_post($post);
+        $d = $c->post_excerpt;
+        $speed_field = get_post_meta($post,'speed_field')[0];
+        $show_check_speed += is_numeric($speed_field) ? 1 : 0;
+        $option_meta[strtolower(str_replace($attribute.': ','',$d))]= array(
+            'speed_field' => $speed_field,
+            'ID' => $post
+        );
+    }
+
+    if ( empty( $options ) && ! empty( $product ) && ! empty( $attribute ) ) {
+        $attributes = $product->get_variation_attributes();
+        $options    = $attributes[ $attribute ];
+    }
+
+    $html  = '<select id="' .esc_attr(  $id ).'-'. $product->get_id(). '" class="' . esc_attr( $class ) .' products__description-select' .'" name="' . esc_attr( $name ) . '" data-attribute_name="attribute_' . esc_attr( sanitize_title( $attribute ) ) . '" data-show_option_none="' . ( $show_option_none ? 'yes' : 'no' ) . '">';
+    $html .= '<option value="">' . esc_html( $show_option_none_text ) . '</option>';
+
+    if ( ! empty( $options ) ) {
+        if ( $product && taxonomy_exists( $attribute ) ) {
+            // Get terms if this is a taxonomy - ordered. We need the names too.
+            $terms = wc_get_product_terms(
+                $product->get_id(),
+                $attribute,
+                array(
+                    'fields' => 'all',
+                )
+            );
+
+            foreach ( $terms as $term ) {
+                if ( in_array( $term->slug, $options, true ) ) {
+                    $html .= '<option  value="' .  esc_attr( $term->slug )  . '" ' . selected( sanitize_title( $args['selected'] ), $term->slug, false ) . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $term->name, $term, $attribute, $product ) ).'</option>';
+                }
+
+            }
+        } else {
+
+            foreach ( $options as $option ) {
+                // This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
+                $post_id = $option_meta[$option]['ID'];
+                $post_speed_field = $option_meta[$option]['speed_field'];
+                $post_speed_field = is_numeric($post_speed_field) ? 'data-speed-price='.$post_speed_field : '';
+                $data_ext = 'data-post='.$post_id.' '.$post_speed_field ;
+                $selected = sanitize_title( $args['selected'] ) === $args['selected'] ? selected( $args['selected'], sanitize_title( $option ), false ) : selected( $args['selected'], $option, false );
+                $html    .= '<option '.$data_ext.' value="' . esc_attr( $option ) . '" ' . $selected . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $option, null, $attribute, $product ) ) . '</option>';
+            }
+        }
+    }
+
+    $html .= '</select>';
+
+    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    echo apply_filters( 'woocommerce_dropdown_variation_attribute_options_html', $html, $args );
 }
+
+//function crazyowl_woocomerce_shop_loop_show_variation()
+//{
+//    global $product;
+//
+////    print_r(wp_get_attachment_image_srcset( $variation_id, $image_size ));
+//// если товар вариантивный
+//    if ($product->is_type('variable')) {
+//        //получаем варианты
+//        $available_variations = $product->get_available_variations();
+//        echo '<select name="" id="product-variable"  data-id="'.$product->get_id().'" class="products__description-select">';
+//        foreach ($available_variations as $key => $value) {
+//            $attribute = $value['attributes']['attribute_class'];
+//            $variation_id = $value['variation_id'];
+//            $post_meta = get_post_meta($variation_id);
+//
+//            //         _price
+//            //        _thumbnail_id
+//            //        speed_field
+//            //       _regular_price
+//            $price = $post_meta['_price'][0];
+//            $thumbnail_url = get_the_post_thumbnail_url($variation_id);
+//            $regular_price = $post_meta['_regular_price'][0];
+//            $speed_price = $post_meta['speed_field'][0];
+//            $speed_price = $speed_price > 0 ? 'data-speed_price="' . $speed_price . '"' : '';
+//
+//            echo '<option value="' . $attribute .
+//                '" data-id="' . $variation_id . '" ' . $speed_price .
+//                ' data-thumbnail="' .$thumbnail_url .
+//                '" data-price="' . $price .
+//                '" data-regular="' . $regular_price . '" >'
+//                . $attribute . ' </option>';
+//        }
+//        echo '</select>';
+//    }
+//}

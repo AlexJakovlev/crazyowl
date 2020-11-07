@@ -4,6 +4,7 @@ add_action('saturblade_before_shop_loop_item_title', 'saturblade_show_product_im
 add_action('saturblade_before_shop_loop_item_title', 'products_variable_item_part', 15);
 add_action('saturblade_before_shop_loop_item_title', 'woocommerce_template_loop_product_link_close', 13);
 add_action('saturblade_before_shop_loop_item_title', 'wpspec_show_product_description', 25);
+add_action('saturblade_before_shop_loop_item_title', 'saturblade_variable_add_to_cart', 30);
 
 
 add_action('saturblade_loop_products_variable_item_part', 'saturblade_template_loop_product_title', 5);

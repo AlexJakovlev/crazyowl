@@ -33,27 +33,27 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
         <?php if (empty($available_variations) && false !== $available_variations) : ?>
             <p class="stock out-of-stock"><?php echo esc_html(apply_filters('woocommerce_out_of_stock_message', __('This product is currently out of stock and unavailable.', 'woocommerce'))); ?></p>
         <?php else :
-            $show_check_speed = 0;
+//            $show_check_speed = 0;
             $posts = $product->get_visible_children();
             $option_meta = array();
             foreach ($posts as $post) {
                 $c = get_post($post);
                 $d = $c->post_excerpt;
                 $speed_field = get_post_meta($post, 'speed_field')[0];
-                $show_check_speed += is_numeric($speed_field) ? 1 : 0;
+//                $show_check_speed += is_numeric($speed_field) ? 1 : 0;
                 foreach ($attributes as $attribute_name => $options) :
                     $option_meta[strtolower(str_replace($attribute_name . ': ', '', $d))] = array(
                         'speed_field' => $speed_field,
                         'ID' => $post
                     ); endforeach;
             }
-            if ($show_check_speed) {
+//            if ($show_check_speed) {
                 echo '<div id="post-'.$product->get_id().'" class="requirements"> <p class="products__description-requirements">This product have requirements</p>
             <label for="urgent-1" class="products__description-checkbox-label">
                 <input type="checkbox" id="speed-'.$product->get_id().'">
                 <span>Срочность выполнения</span>
             </label></div>';
-            }
+//            }
             ?>
             <table class="variations" cellspacing="0">
                 <tbody>
@@ -64,7 +64,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
                         </td>
                         <td class="value">
                             <?php
-                            crazyowl_dropdown_variation_attribute_options(
+                            saturblade_dropdown_variation_attribute_options(
                                 array(
                                     'options_meta' => $option_meta,
                                     'options'      => $options,
@@ -72,7 +72,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
                                     'product'      => $product,
                                 )
                             );
-                            echo end($attribute_keys) === $attribute_name ? wp_kses_post(apply_filters('woocommerce_reset_variations_link', '<a class="reset_variations" href="#">' . esc_html__('Clear', 'woocommerce') . '</a>')) : '';
+                            echo end($attribute_keys) === $attribute_name ? wp_kses_post(apply_filters('woocommerce_reset_variations_link', '')) : '';
                             ?>
                         </td>
                     </tr>
