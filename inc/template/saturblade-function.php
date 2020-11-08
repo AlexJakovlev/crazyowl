@@ -67,7 +67,7 @@ function wpspec_show_product_description()
 ?>
     <div class="products__description">
         <p class="products__description-text"><?php echo get_the_excerpt() ?></p>
-        <p class="form-field Urgency_field ">
+        <p class="products__description-requirements">
             <label for="Urgency">This product have requirements</label>
             <span class="woocommerce-help-tip"></span>
             <input id="speed-<?php echo $product->get_id();?>" type="checkbox" class="checkbox" style="" name="Urgency"
@@ -123,7 +123,6 @@ function saturblade_show_product_sale_flash()
     echo '</span>';
 }
 
-
 // Вывод картинок(и) товара в LOOP'e
 function saturblade_show_product_images()
 {
@@ -131,7 +130,7 @@ function saturblade_show_product_images()
 }
 
 // TODO вывод галереи
-function crazyowl_get_gallery_image_html($attachment_id, $main_image = false)
+function saturblade_get_gallery_image_html($attachment_id, $main_image = false)
 {
     $flexslider = (bool)apply_filters('woocommerce_single_product_flexslider_enabled', get_theme_support('wc-product-gallery-slider'));
     $gallery_thumbnail = wc_get_image_size('gallery_thumbnail');
@@ -171,7 +170,7 @@ if ( ! function_exists( 'woocommerce_variable_add_to_cart' ) ) {
     /**
      * Output the variable product add to cart area.
      */
-    function saturblade_variable_add_to_cart() {
+    function saturblade_variable_form_add_to_cart() {
         global $product;
 
         // Enqueue variation scripts.
@@ -191,6 +190,31 @@ if ( ! function_exists( 'woocommerce_variable_add_to_cart' ) ) {
         );
     }
 }
+
+function saturblade_variable_loop_product_btns(){
+    echo '<div class="products__btns">';
+    saturblade_button_proceed_to_checkout();
+    do_action('saturblade_product_btns');
+    echo '</div>';
+}
+if ( ! function_exists( 'saturblade_button_proceed_to_checkout' ) ) {
+
+    /**
+     * Output the proceed to checkout button.
+     */
+    function saturblade_button_proceed_to_checkout() {
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly.
+}
+?>
+
+<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="btn btn-danger products__btn">
+    <?php esc_html_e( 'BUY NOW', 'woocommerce' ); ?>
+</a>
+<?php
+    }
+}
+
 //add_filter('woocommerce_variable_price_html', 'my_woocommerce_variable_price_html', 10, 2);
 //
 //function my_woocommerce_variable_price_html($price, $product)
@@ -233,7 +257,7 @@ if ( ! function_exists( 'woocommerce_variable_add_to_cart' ) ) {
 //    );
 //}
 //
-function crazyowl_loop_add_to_cart( $args = array() ){
+function saturblade_loop_add_to_cart( $args = array() ){
     global $product;
 
     if ( $product ) {
@@ -264,10 +288,10 @@ function crazyowl_loop_add_to_cart( $args = array() ){
             $args['attributes']['aria-label'] = wp_strip_all_tags($args['attributes']['aria-label']);
         }
 
-        wc_get_template('loop/crazyowl-add-to-cart1.php', $args);
+        wc_get_template('loop/saturblade-add-to-cart.php', $args);
     }
 }
-function crazyowl_add_to_cart_url() {
+function saturblade_add_to_cart_url() {
     global $product;
     $url = $product->is_purchasable() && $product->is_in_stock() ? remove_query_arg(
         'added-to-cart',
