@@ -64,14 +64,14 @@ function saturblade_template_loop_product_title()
 function wpspec_show_product_description()
 {
     global $product;
-?>
+    ?>
     <div class="products__description">
         <p class="products__description-text"><?php echo get_the_excerpt() ?></p>
         <p class="products__description-requirements">
             <label for="Urgency">This product have requirements</label>
             <span class="woocommerce-help-tip"></span>
-            <input id="speed-<?php echo $product->get_id();?>" type="checkbox" class="checkbox" style="" name="Urgency"
-                   id="Urgency">Срочность выполнения </p>
+            <input id="speed-<?php echo $product->get_id(); ?>" type="checkbox" class="checkbox" style="" name="Urgency"
+            >Срочность выполнения </p>
     </div>
     <?php
 
@@ -113,16 +113,37 @@ function wpspec_show_product_description()
 
 function saturblade_show_product_sale_flash()
 {
-    global $product;
-    echo '<span class="products__item-labels">
-<span class="products__item-label products__item-label_new">hott</span>
-                           <span class="products__item-label products__item-label_new">New</span>';
-    if ($product->is_on_sale()) {
-        echo '<span class="products__item-label products__item-label_hot"><i class="far fa-clock"></i></span>';
-    }
-    echo '</span>';
-}
 
+    /**
+     *  $tags - масиив меток товара ('24','25'...)
+     */
+
+    global $product;
+
+    $hot= false;
+    $new = false;
+
+    $tags = $product->get_tag_ids();
+    foreach ($tags as $tag){
+        switch ($tag){
+            case '24' : $hot = true; break;
+            case '25' : $new = true; break;
+        };
+    }
+    if ($hot || $new || $product->is_on_sale()) {
+        echo '<span class="products__item-labels">';
+        if ($product->is_on_sale()){
+        echo '<span class="products__item-label products__item-label_discount">discount</span>';
+        }
+        if ($new) {
+            echo '<span class="products__item-label products__item-label_new">New</span>';
+        }
+        if ($hot) {
+            echo '<span class="products__item-label products__item-label_hot"><i class="far fa-clock"></i></span>';
+        }
+        echo '</span>';
+    }
+}
 // Вывод картинок(и) товара в LOOP'e
 function saturblade_show_product_images()
 {
@@ -165,7 +186,7 @@ function saturblade_get_gallery_image_html($attachment_id, $main_image = false)
 }
 
 // TODO вывод вариаций в магазине
-if ( ! function_exists( 'woocommerce_variable_add_to_cart' ) ) {
+if (!function_exists('woocommerce_variable_add_to_cart')) {
 
     /**
      * Output the variable product add to cart area.
@@ -193,27 +214,30 @@ if ( ! function_exists( 'woocommerce_variable_add_to_cart' ) ) {
     }
 }
 
-function saturblade_variable_loop_product_btns(){
+function saturblade_variable_loop_product_btns()
+{
     echo '<div class="products__btns">';
     saturblade_button_proceed_to_checkout();
     do_action('saturblade_product_btns');
     echo '</div>';
 }
-if ( ! function_exists( 'saturblade_button_proceed_to_checkout' ) ) {
+
+if (!function_exists('saturblade_button_proceed_to_checkout')) {
 
     /**
      * Output the proceed to checkout button.
      */
-    function saturblade_button_proceed_to_checkout() {
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
-}
-?>
+    function saturblade_button_proceed_to_checkout()
+    {
+        if (!defined('ABSPATH')) {
+            exit; // Exit if accessed directly.
+        }
+        ?>
 
-<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="btn btn-danger products__btn">
-    <?php esc_html_e( 'BUY NOW', 'woocommerce' ); ?>
-</a>
-<?php
+        <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="btn btn-danger products__btn">
+            <?php esc_html_e('BUY NOW', 'woocommerce'); ?>
+        </a>
+        <?php
     }
 }
 
@@ -259,10 +283,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 //    );
 //}
 //
-function saturblade_loop_add_to_cart( $args = array() ){
+function saturblade_loop_add_to_cart($args = array())
+{
     global $product;
 
-    if ( $product ) {
+    if ($product) {
         $defaults = array(
             'quantity' => 1,
             'class' => implode(
@@ -293,7 +318,9 @@ function saturblade_loop_add_to_cart( $args = array() ){
         wc_get_template('loop/saturblade-add-to-cart.php', $args);
     }
 }
-function saturblade_add_to_cart_url() {
+
+function saturblade_add_to_cart_url()
+{
     global $product;
     $url = $product->is_purchasable() && $product->is_in_stock() ? remove_query_arg(
         'added-to-cart',
@@ -301,69 +328,70 @@ function saturblade_add_to_cart_url() {
             array(
                 'add-to-cart' => $product->get_id(),
             ),
-            ( function_exists( 'is_feed' ) && is_feed() ) || ( function_exists( 'is_404' ) && is_404() ) ? $product->get_permalink() : ''
+            (function_exists('is_feed') && is_feed()) || (function_exists('is_404') && is_404()) ? $product->get_permalink() : ''
         )
     ) : $product->get_permalink();
-    return apply_filters( 'woocommerce_product_add_to_cart_url', $url, $product );
+    return apply_filters('woocommerce_product_add_to_cart_url', $url, $product);
 }
 
 
-function saturblade_dropdown_variation_attribute_options( $args = array() ) {
+function saturblade_dropdown_variation_attribute_options($args = array())
+{
     $args = wp_parse_args(
-        apply_filters( 'woocommerce_dropdown_variation_attribute_options_args', $args ),
+        apply_filters('woocommerce_dropdown_variation_attribute_options_args', $args),
         array(
-            'options_meta'     => false,
-            'options'          => false,
-            'attribute'        => false,
-            'product'          => false,
-            'selected'         => false,
-            'name'             => '',
-            'id'               => '',
-            'class'            => '',
-            'show_option_none' => __( 'Choose an option', 'woocommerce' ),
+            'options_meta' => false,
+            'options' => false,
+            'attribute' => false,
+            'product' => false,
+            'selected' => false,
+            'name' => '',
+            'id' => '',
+            'class' => '',
+            'show_option_none' => __('Choose an option', 'woocommerce'),
         )
     );
 
     // Get selected value.
-    if ( false === $args['selected'] && $args['attribute'] && $args['product'] instanceof WC_Product ) {
-        $selected_key = 'attribute_' . sanitize_title( $args['attribute'] );
+    if (false === $args['selected'] && $args['attribute'] && $args['product'] instanceof WC_Product) {
+        $selected_key = 'attribute_' . sanitize_title($args['attribute']);
         // phpcs:disable WordPress.Security.NonceVerification.Recommended
-        $args['selected'] = isset( $_REQUEST[ $selected_key ] ) ? wc_clean( wp_unslash( $_REQUEST[ $selected_key ] ) ) : $args['product']->get_variation_default_attribute( $args['attribute'] );
+        $args['selected'] = isset($_REQUEST[$selected_key]) ? wc_clean(wp_unslash($_REQUEST[$selected_key])) : $args['product']->get_variation_default_attribute($args['attribute']);
         // phpcs:enable WordPress.Security.NonceVerification.Recommended
     }
-    $option_meta           = $args['options_meta'];
-    $options               = $args['options'];
-    $product               = $args['product'];
-    $attribute             = $args['attribute'];
-    $name                  = $args['name'] ? $args['name'] : 'attribute_' . sanitize_title( $attribute );
-    $id                    = $args['id'] ? $args['id'] : sanitize_title( $attribute );
-    $class                 = $args['class'];
-    $show_option_none      = (bool) $args['show_option_none'];
-    $show_option_none_text = $args['show_option_none'] ? $args['show_option_none'] : __( 'Choose an option', 'woocommerce' ); // We'll do our best to hide the placeholder, but we'll need to show something when resetting options.
-    $show_check_speed      = 0;
+    $option_meta = $args['options_meta'];
+    $options = $args['options'];
+    $product = $args['product'];
+    $attribute = $args['attribute'];
+    $name = $args['name'] ? $args['name'] : 'attribute_' . sanitize_title($attribute);
+    $id = $args['id'] ? $args['id'] : sanitize_title($attribute);
+    $class = $args['class'];
+    $show_option_none = (bool)$args['show_option_none'];
+    $show_option_none_text = $args['show_option_none'] ? $args['show_option_none'] : __('Choose an option', 'woocommerce'); // We'll do our best to hide the placeholder, but we'll need to show something when resetting options.
+    $show_check_speed = 0;
     $posts = $product->get_visible_children();
-    $option_meta =         array();
-    foreach ($posts as $post ){
+    $option_meta = array();
+    foreach ($posts as $post) {
         $c = get_post($post);
         $d = $c->post_excerpt;
-        $speed_field = get_post_meta($post,'speed_field')[0];
+        $speed_field = get_post_meta($post, 'speed_field')[0];
         $show_check_speed += is_numeric($speed_field) ? 1 : 0;
-        $option_meta[strtolower(str_replace($attribute.': ','',$d))]= array(
+        $option_meta[strtolower(str_replace($attribute . ': ', '', $d))] = array(
             'speed_field' => $speed_field,
             'ID' => $post
         );
     }
 
-    if ( empty( $options ) && ! empty( $product ) && ! empty( $attribute ) ) {
+    if (empty($options) && !empty($product) && !empty($attribute)) {
         $attributes = $product->get_variation_attributes();
-        $options    = $attributes[ $attribute ];
+        $options = $attributes[$attribute];
     }
 
-    $html  = '<select id="' .esc_attr(  $id ).'-'. $product->get_id(). '" class="' . esc_attr( $class ) .' products__description-select' .'" name="' . esc_attr( $name ) . '" data-attribute_name="attribute_' . esc_attr( sanitize_title( $attribute ) ) . '" data-show_option_none="' . ( $show_option_none ? 'yes' : 'no' ) . '">';
-    $html .= '<option value="">' . esc_html( $show_option_none_text ) . '</option>';
+    $html = '<select id="' . esc_attr($id) . '-' . $product->get_id() . '" class="' . esc_attr($class) . ' products__description-select' . '" name="' . esc_attr($name) . '" data-attribute_name="attribute_' . esc_attr(sanitize_title($attribute)) . '" data-show_option_none="' . ($show_option_none ? 'yes' : 'no') . '">';
+    $html .= '<option value="">' . esc_html($show_option_none_text) . '</option>';
 
-    if ( ! empty( $options ) ) {
-        if ( $product && taxonomy_exists( $attribute ) ) {
+    if (!empty($options)) {
+        if ($product && taxonomy_exists($attribute)) {
             // Get terms if this is a taxonomy - ordered. We need the names too.
             $terms = wc_get_product_terms(
                 $product->get_id(),
@@ -373,22 +401,22 @@ function saturblade_dropdown_variation_attribute_options( $args = array() ) {
                 )
             );
 
-            foreach ( $terms as $term ) {
-                if ( in_array( $term->slug, $options, true ) ) {
-                    $html .= '<option  value="' .  esc_attr( $term->slug )  . '" ' . selected( sanitize_title( $args['selected'] ), $term->slug, false ) . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $term->name, $term, $attribute, $product ) ).'</option>';
+            foreach ($terms as $term) {
+                if (in_array($term->slug, $options, true)) {
+                    $html .= '<option  value="' . esc_attr($term->slug) . '" ' . selected(sanitize_title($args['selected']), $term->slug, false) . '>' . esc_html(apply_filters('woocommerce_variation_option_name', $term->name, $term, $attribute, $product)) . '</option>';
                 }
 
             }
         } else {
 
-            foreach ( $options as $option ) {
+            foreach ($options as $option) {
                 // This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
                 $post_id = $option_meta[$option]['ID'];
                 $post_speed_field = $option_meta[$option]['speed_field'];
-                $post_speed_field = is_numeric($post_speed_field) ? 'data-speed-price='.$post_speed_field : '';
-                $data_ext = 'data-post='.$post_id.' '.$post_speed_field ;
-                $selected = sanitize_title( $args['selected'] ) === $args['selected'] ? selected( $args['selected'], sanitize_title( $option ), false ) : selected( $args['selected'], $option, false );
-                $html    .= '<option '.$data_ext.' value="' . esc_attr( $option ) . '" ' . $selected . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $option, null, $attribute, $product ) ) . '</option>';
+                $post_speed_field = is_numeric($post_speed_field) ? 'data-speed-price=' . $post_speed_field : '';
+                $data_ext = 'data-post=' . $post_id . ' ' . $post_speed_field;
+                $selected = sanitize_title($args['selected']) === $args['selected'] ? selected($args['selected'], sanitize_title($option), false) : selected($args['selected'], $option, false);
+                $html .= '<option ' . $data_ext . ' value="' . esc_attr($option) . '" ' . $selected . '>' . esc_html(apply_filters('woocommerce_variation_option_name', $option, null, $attribute, $product)) . '</option>';
             }
         }
     }
@@ -396,7 +424,7 @@ function saturblade_dropdown_variation_attribute_options( $args = array() ) {
     $html .= '</select>';
 
     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    echo apply_filters( 'woocommerce_dropdown_variation_attribute_options_html', $html, $args );
+    echo apply_filters('woocommerce_dropdown_variation_attribute_options_html', $html, $args);
 }
 
 //function crazyowl_woocomerce_shop_loop_show_variation()
