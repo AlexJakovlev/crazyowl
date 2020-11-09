@@ -1,26 +1,36 @@
 <?php
-add_action('saturblade_before_shop_loop', 'woocommerce_template_loop_product_link_open', 5);
-add_action('saturblade_before_shop_loop_item_title', 'saturblade_show_product_images', 10);
-add_action('saturblade_before_shop_loop_item_title', 'products_variable_item_part', 15);
-add_action('saturblade_before_shop_loop_item_title', 'woocommerce_template_loop_product_link_close', 13);
-add_action('saturblade_before_shop_loop_item_title', 'wpspec_show_product_description', 25);
-add_action('saturblade_before_shop_loop_item_title', 'saturblade_variable_form_add_to_cart', 27);
-add_action('saturblade_before_shop_loop_item_title', 'saturblade_variable_loop_product_btns',30);
 
+// TODO variable product
+
+add_action('saturblade_shop_loop_item', 'woocommerce_template_loop_product_link_open', 5);
+add_action('saturblade_shop_loop_item', 'saturblade_show_product_images', 10);
+add_action('saturblade_shop_loop_item', 'products_variable_item_part', 15);
+add_action('saturblade_shop_loop_item', 'woocommerce_template_loop_product_link_close', 13);
+add_action('saturblade_shop_loop_item', 'wpspec_show_product_description', 25);
+add_action('saturblade_shop_loop_item', 'saturblade_variable_form_add_to_cart', 27);
+add_action('saturblade_shop_loop_item', 'saturblade_variable_loop_product_btns',30);
 
 add_action('saturblade_product_btns', 'saturblade_loop_add_to_cart', 15);
-
 
 add_action('saturblade_loop_products_variable_item_part', 'saturblade_template_loop_product_title', 5);
 add_action('saturblade_loop_products_variable_item_part', 'woocommerce_template_loop_price', 15);
 add_action('saturblade_loop_products_variable_item_part', 'saturblade_show_product_sale_flash', 25);
 
+// TODO single product
+add_action('saturblade_single_shop_loop_item_title', 'woocommerce_template_loop_product_link_open', 5);
+add_action('saturblade_single_shop_loop_item_title', 'saturblade_show_product_images',10);
+add_action('saturblade_single_shop_loop_item_title', 'products_variable_item_part', 15);
+add_action('saturblade_single_shop_loop_item_title', 'woocommerce_template_loop_product_link_close', 20);
+add_action('saturblade_single_shop_loop_item_title', 'wpspec_show_product_description', 25);
+add_action('saturblade_single_shop_loop_item_title', 'saturblade_variable_loop_product_btns',30);
+
+
 //add_action('crazyowl_woocomerce_shop_loop', 'woocommerce_template_loop_product_link_open', 5);
 //add_action('crazyowl_woocomerce_shop_loop', 'woocommerce_show_product_loop_sale_flash', 10);
 //add_action('crazyowl_woocomerce_shop_loop', 'woocommerce_template_loop_product_thumbnail', 15);
 //add_action('crazyowl_woocomerce_shop_loop', 'woocommerce_template_loop_rating', 20);
-//add_action('crazyowl_woocomerce_shop_loop', 'woocommerce_template_loop_price', 25);
-//add_action('crazyowl_woocomerce_shop_loop', 'woocommerce_template_loop_product_title', 30);
+
+
 //add_action('crazyowl_woocomerce_shop_loop', 'woocommerce_template_loop_product_link_close', 35);
 //add_action('crazyowl_woocomerce_shop_loop', 'woocommerce_template_loop_add_to_cart', 45);
 //add_action('crazyowl_woocomerce_shop_loop', 'woocommerce_widget_shopping_cart_button_view_cart', 42);

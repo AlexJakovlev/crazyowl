@@ -170,24 +170,26 @@ if ( ! function_exists( 'woocommerce_variable_add_to_cart' ) ) {
     /**
      * Output the variable product add to cart area.
      */
-    function saturblade_variable_form_add_to_cart() {
+    function saturblade_variable_form_add_to_cart()
+    {
         global $product;
+        if ($product->is_type('variable')) {
+            // Enqueue variation scripts.
+            wp_enqueue_script('wc-add-to-cart-variation');
 
-        // Enqueue variation scripts.
-        wp_enqueue_script( 'wc-add-to-cart-variation' );
+            // Get Available variations?
+            $get_variations = count($product->get_children()) <= apply_filters('woocommerce_ajax_variation_threshold', 30, $product);
 
-        // Get Available variations?
-        $get_variations = count( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
-
-        // Load the template.
-        wc_get_template(
-            'single-product1/add-to-cart/archive-variable.php',
-            array(
-                'available_variations' => $get_variations ? $product->get_available_variations() : false,
-                'attributes'           => $product->get_variation_attributes(),
-                'selected_attributes'  => $product->get_default_attributes(),
-            )
-        );
+            // Load the template.
+            wc_get_template(
+                'single-product1/add-to-cart/archive-variable.php',
+                array(
+                    'available_variations' => $get_variations ? $product->get_available_variations() : false,
+                    'attributes' => $product->get_variation_attributes(),
+                    'selected_attributes' => $product->get_default_attributes(),
+                )
+            );
+        }
     }
 }
 

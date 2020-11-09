@@ -63,7 +63,7 @@ if ( empty( $product ) || false === wc_get_loop_product_visibility( $product->ge
      *
      * @hooked woocommerce_template_loop_product_link_open - 10
      */
-    do_action( 'saturblade_before_shop_loop' );
+//    do_action( 'saturblade_before_shop_loop' );
 
     /**
      * Hook: woocommerce_before_shop_loop_item_title.
@@ -71,8 +71,7 @@ if ( empty( $product ) || false === wc_get_loop_product_visibility( $product->ge
      * @hooked woocommerce_show_product_loop_sale_flash - 10
      * @hooked woocommerce_template_loop_product_thumbnail - 10
      */
-    do_action( 'saturblade_before_shop_loop_item_title' );
-
+        do_action('saturblade_shop_loop_item');
     /**
      * Hook: woocommerce_shop_loop_item_title.
      *
