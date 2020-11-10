@@ -65,13 +65,13 @@ function wpspec_show_product_description()
 {
     global $product;
     ?>
+  </div>
     <div class="products__description">
         <p class="products__description-text"><?php echo get_the_excerpt() ?></p>
         <p class="products__description-requirements">
             <label for="Urgency">This product have requirements</label>
             <span class="woocommerce-help-tip"></span>
-            <input id="speed-<?php echo $product->get_id(); ?>" type="checkbox" class="checkbox" style="" name="Urgency"
-            >Срочность выполнения </p>
+            <input id="speed-<?php echo $product->get_id(); ?>" type="checkbox" class="checkbox" style="" name="Urgency">Срочность выполнения </p>
     </div>
     <?php
 
