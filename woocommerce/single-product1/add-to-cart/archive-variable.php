@@ -36,17 +36,17 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 //            $show_check_speed = 0;
             $posts = $product->get_visible_children();
             $option_meta = array();
-            foreach ($posts as $post) {
-                $c = get_post($post);
-                $d = $c->post_excerpt;
-                $speed_field = get_post_meta($post, 'speed_field')[0];
-//                $show_check_speed += is_numeric($speed_field) ? 1 : 0;
-                foreach ($attributes as $attribute_name => $options) :
-                    $option_meta[strtolower(str_replace($attribute_name . ': ', '', $d))] = array(
-                        'speed_field' => $speed_field,
-                        'ID' => $post
-                    ); endforeach;
-            }
+//            foreach ($posts as $post) {
+//                $c = get_post($post);
+//                $d = $c->post_excerpt;
+////                $speed_field = get_post_meta($post, 'speed_field')[0];
+////                $show_check_speed += is_numeric($speed_field) ? 1 : 0;
+////                foreach ($attributes as $attribute_name => $options) :
+////                    $option_meta[strtolower(str_replace($attribute_name . ': ', '', $d))] = array(
+////                        'speed_field' => $speed_field,
+////                        'ID' => $post
+////                    ); endforeach;
+//            }
 //            if ($show_check_speed) {
                 echo '<div id="post-'.$product->get_id().'" class="requirements"> <p class="products__description-requirements">This product have requirements</p>
             <label for="urgent-1" class="products__description-checkbox-label">

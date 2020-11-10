@@ -64,12 +64,22 @@ function saturblade_template_loop_product_title()
 function wpspec_show_product_description()
 {
     global $product;
+    $meta = get_post_meta($product->get_id());
+    $requirement_field= array_key_exists (  'requirement_field',$meta) ? $meta['requirement_field'][0] : false;
+    $delivery_field= array_key_exists (  'delivery_field',$meta) ? $meta['delivery_field'][0] : false;
+
     ?>
   </div>
     <div class="products__description">
         <p class="products__description-text"><?php echo get_the_excerpt() ?></p>
         <div>
-          <p class="products__description-requirements">This product have requirements</p>
+            <?php if ( $requirement_field || $delivery_field ) {
+               echo  '<p class="products__description-requirements">This product have requirements</p>';
+               echo  '<p class="products__description-requirements">Requiremets: '.$requirement_field.'</p>';
+               echo  '<p class="products__description-requirements">Время выполнения: '.$delivery_field.'</p>';
+
+            }
+            ?>
           <label for="urgent-<?php echo $product->get_id(); ?>" class="products__description-checkbox-label">
             <span class="woocommerce-help-tip"></span>
             <input id="speed-<?php echo $product->get_id(); ?>" type="checkbox" class="checkbox" style="" name="Urgency">
@@ -83,7 +93,13 @@ function wpspec_show_product_description()
 
 
 // TODO АДМИНКА доп поля в вариативном товаре
+add_filter('woocommerce_product_data_tabs', 'saturblade_product_admin_tab' );
 
+function saturblade_product_admin_tab( $tabs ){
+    unset( $tabs[ 'inventory' ] ); // Запасы
+    unset( $tabs[ 'shipping' ] ); // Доставка
+    return $tabs;
+}
 function saturblade_requirement_fields_from_product()
 {
 
@@ -376,7 +392,7 @@ function saturblade_dropdown_variation_attribute_options($args = array())
         $args['selected'] = isset($_REQUEST[$selected_key]) ? wc_clean(wp_unslash($_REQUEST[$selected_key])) : $args['product']->get_variation_default_attribute($args['attribute']);
         // phpcs:enable WordPress.Security.NonceVerification.Recommended
     }
-    $option_meta = $args['options_meta'];
+//    $option_meta = $args['options_meta'];
     $options = $args['options'];
     $product = $args['product'];
     $attribute = $args['attribute'];
@@ -385,19 +401,19 @@ function saturblade_dropdown_variation_attribute_options($args = array())
     $class = $args['class'];
     $show_option_none = (bool)$args['show_option_none'];
     $show_option_none_text = $args['show_option_none'] ? $args['show_option_none'] : __('Choose an option', 'woocommerce'); // We'll do our best to hide the placeholder, but we'll need to show something when resetting options.
-    $show_check_speed = 0;
-    $posts = $product->get_visible_children();
-    $option_meta = array();
-    foreach ($posts as $post) {
-        $c = get_post($post);
-        $d = $c->post_excerpt;
-        $speed_field = get_post_meta($post, 'speed_field')[0];
-        $show_check_speed += is_numeric($speed_field) ? 1 : 0;
-        $option_meta[strtolower(str_replace($attribute . ': ', '', $d))] = array(
-            'speed_field' => $speed_field,
-            'ID' => $post
-        );
-    }
+//    $show_check_speed = 0;
+//    $posts = $product->get_visible_children();
+//    $option_meta = array();
+//    foreach ($posts as $post) {
+//        $c = get_post($post);
+//        $d = $c->post_excerpt;
+//        $speed_field = get_post_meta($post, 'speed_field')[0];
+//        $show_check_speed += is_numeric($speed_field) ? 1 : 0;
+//        $option_meta[strtolower(str_replace($attribute . ': ', '', $d))] = array(
+//            'speed_field' => $speed_field,
+//            'ID' => $post
+//        );
+//    }
 
     if (empty($options) && !empty($product) && !empty($attribute)) {
         $attributes = $product->get_variation_attributes();
@@ -428,12 +444,12 @@ function saturblade_dropdown_variation_attribute_options($args = array())
 
             foreach ($options as $option) {
                 // This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
-                $post_id = $option_meta[$option]['ID'];
-                $post_speed_field = $option_meta[$option]['speed_field'];
-                $post_speed_field = is_numeric($post_speed_field) ? 'data-speed-price=' . $post_speed_field : '';
-                $data_ext = 'data-post=' . $post_id . ' ' . $post_speed_field;
+//                $post_id = $option_meta[$option]['ID'];
+//                $post_speed_field = $option_meta[$option]['speed_field'];
+//                $post_speed_field = is_numeric($post_speed_field) ? 'data-speed-price=' . $post_speed_field : '';
+//                $data_ext = 'data-post=' . $post_id . ' ' . $post_speed_field;
                 $selected = sanitize_title($args['selected']) === $args['selected'] ? selected($args['selected'], sanitize_title($option), false) : selected($args['selected'], $option, false);
-                $html .= '<option ' . $data_ext . ' value="' . esc_attr($option) . '" ' . $selected . '>' . esc_html(apply_filters('woocommerce_variation_option_name', $option, null, $attribute, $product)) . '</option>';
+                $html .= '<option  value="' . esc_attr($option) . '" ' . $selected . '>' . esc_html(apply_filters('woocommerce_variation_option_name', $option, null, $attribute, $product)) . '</option>';
             }
         }
     }
