@@ -5,7 +5,7 @@
     <h2><?php esc_html_e('Register', 'woocommerce'); ?></h2>
 
     <form method="post" class="login__form woocommerce-form woocommerce-form-register register" <?php do_action('woocommerce_register_form_tag'); ?> >
-        <div>
+        <div class="login__form-title">
           <?php do_action('woocommerce_before_customer_login_form') ?>
             <?php esc_html_e('Register', 'woocommerce');
             ?>

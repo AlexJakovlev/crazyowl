@@ -157,8 +157,6 @@ ul li {
 }
 .top-footer {
 	padding: 15px;
-	display: flex;
-	justify-content: center;
 	background-color: #071844;
 }
 .top-footer__menu {
@@ -637,19 +635,25 @@ h2 {
 	justify-content: center;
 }
 .login__form {
-	width: 50%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
+.woocommerce form.login, .woocommerce form.register {
+	padding: 5px;
+}
+.login__form .login__form-title {
+	color: #0e214a;
+	font-size: 21px;
+	font-weight: 500;
+}
 .login__form .login__link {
-	width: 320px;
+	width: 100%;
 	margin: 0;
 	display: flex;
 	justify-content: center;
 	color: #0e214a;
 }
-
 .login__form .login__link .login__link-href {
 	margin-left: 10px;
 	color: #e04c4c;
@@ -667,7 +671,7 @@ h2 {
 	font-size: 14px;
 }
 .login__form .login__input-wrapper {
-	width: 320px;
+	width: 100%;
 	position: relative;
 	margin: 20px;
 }
@@ -703,8 +707,21 @@ h2 {
 	color: #0e214a;
 }
 .login__form .login__btn {
-	width: 320px;
+	width: 100%;
 	margin: 30px 0;
+}
+.login__form .woocommerce-privacy-policy-text {
+	margin-top: 15px;
+	color: #0e214a;
+	font-size: 13px;
+	font-weight: 300;
+	text-align: center;
+}
+.login__form .woocommerce-privacy-policy-text p {
+	margin: 0;
+}
+.login__form .woocommerce-privacy-policy-link {
+	color: #e04c4c;
 }
 /* MyAccount Profile */
 .account__profile {
@@ -968,6 +985,10 @@ h2 {
 		display: none;
 	}
 	/* FOOTER */
+	.top-footer {
+		display: flex;
+		justify-content: center;
+	}
 	.top-footer__menu {
 		display: flex;
 		justify-content: center;
@@ -1418,6 +1439,21 @@ h2 {
 		flex: 1;
 		border-left: 1px solid #d1d1d1;
 		border-radius: 0;
+	}
+	/* Registration */
+	.login__form {
+		width: 50%;
+	}
+	.woocommerce form.login,
+	.woocommerce form.register {
+		padding: 20px;
+	}
+	.login__form .login__link {
+		width: 320px;
+	}
+	.login__form .login__input-wrapper,
+	.login__form .login__btn {
+		width: 320px;
 	}
 	/* My Account Profile */
 	.account__profile {

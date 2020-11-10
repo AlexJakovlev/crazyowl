@@ -10,10 +10,10 @@ do_action( 'woocommerce_before_customer_login_form' );
 
     <?php do_action( 'woocommerce_login_form_start' ); ?>
    <?php if ('yes' === get_option('woocommerce_enable_myaccount_registration')) : ?>
-     <p class="login__link">
-       <span>Have no account?</span>
-       <a href="/index.php/my-account/?action=register" class="login__link-href"> register </a>
-     </p>
+       <p class="login__link">
+         <span>Have no account?</span>
+         <a href="/index.php/my-account/?action=register" class="login__link-href"> register </a>
+       </p>
    <?php endif; ?>
 
     <p class="login__input-wrapper">
