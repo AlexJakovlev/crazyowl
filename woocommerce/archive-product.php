@@ -99,46 +99,14 @@ get_header( 'shop' );
                  */
                 do_action( 'woocommerce_after_main_content' );
                 ?>
-               <div class="products__item products__advert-block">
-                  <p class="products__advert-text">
-                     Здесь должен быть текст с удержанием для покупателя, но я не еду зачем он вообще нужен потому что на мой
-                     взгляд он только лишний. А также мне не дали ни текста, ни намёка как его сделать. Поэтому вы видите этот
-                     бесполезный текст.
-                  </p>
-                  <button class="btn btn-danger products__btn_advert">Hello world</button>
-               </div>
-               <div class="products__item">
-                  <div class="products__item-top">
-                     <img src="<?php bloginfo('template_directory'); ?>/assets/img/tiger_release_final_20200409_205454.jpg"
-                          class="products__img" />
-                     <div class="products__item-part">
-                        <h5 class="products__description-title">Whispers of the Worm (Normal + Full Catalyst + Ship)</h5>
-                        <span class="products__item-price">$69.69</span>
-                        <span class="products__item-labels">
-                        <span class="products__item-label products__item-label_new">New</span>
-                     </span>
-                     </div>
-                  </div>
-                  <div class="products__description">
-                     <p class="products__description-text">Необходимо найти Van Darkholme’а на планете Fisting и отжать его заначку.</p>
-                     <div>
-                        <p class="products__description-requirements">This product have requirements</p>
-                        <label for="urgent-1" class="products__description-checkbox-label">
-                           <input type="checkbox" id="urgent-1">
-                           <span>Срочность выполнения</span>
-                        </label>
-                        <select name="" id="" class="products__description-select">
-                           <option value="Dungeon master">Dungeon master</option>
-                           <option value="Dungeon master">Dungeon master</option>
-                           <option value="Dungeon master">Dungeon master</option>
-                        </select>
-                        <div class="products__btns">
-                           <button class="btn btn-danger products__btn">Buy now</button>
-                           <button class="btn btn-danger products__btn">Add to cart</button>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+<!--               <div class="products__item products__advert-block">-->
+<!--                  <p class="products__advert-text">-->
+<!--                     Здесь должен быть текст с удержанием для покупателя, но я не еду зачем он вообще нужен потому что на мой-->
+<!--                     взгляд он только лишний. А также мне не дали ни текста, ни намёка как его сделать. Поэтому вы видите этот-->
+<!--                     бесполезный текст.-->
+<!--                  </p>-->
+<!--                  <button class="btn btn-danger products__btn_advert">Hello world</button>-->
+<!--               </div>-->
             </div>
          </div>
       </div>
