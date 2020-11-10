@@ -968,6 +968,25 @@ h2 {
 	.menu-wrapper {
 		display: flex;
 	}
+	.header.header_desktop .search {
+		background-color: #071844;
+	}
+	.header.header_desktop .search input,
+	.header.header_desktop .search button {
+		background-color: transparent;
+		border: none;
+		padding: 0 10px;
+		color: #374867;
+		font-size: 14px;
+		transition: ease-out .2s;
+	}
+	.header.header_desktop .search input:active,
+	.header.header_desktop .search input:focus,
+	.header.header_desktop .search input:active ~ button,
+	.header.header_desktop .search input:focus ~ button {
+		color: #fff;
+		outline: none;
+	}
 	.header__menu {
 		display: flex;
 	}
@@ -1247,6 +1266,9 @@ h2 {
 		width: 100% !important;
 		height: 250px;
 		border-radius: 0;
+	}
+	.woocommerce div.product div.images img {
+		border-bottom: 1px solid #c4c4c4;
 	}
 	.woocommerce .products__item-price {
 		position: absolute;
