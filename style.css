@@ -637,6 +637,7 @@ h2 {
 	justify-content: center;
 }
 .login__form {
+	width: 50%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -695,6 +696,11 @@ h2 {
 .login__form .login__input-text:focus,
 .login__form .login__input-text:hover {
 	border-color: #0e214a;
+}
+.login__form .login__input-text:active ~ label,
+.login__form .login__input-text:focus ~ label,
+.login__form .login__input-text:hover ~ label {
+	color: #0e214a;
 }
 .login__form .login__btn {
 	width: 320px;

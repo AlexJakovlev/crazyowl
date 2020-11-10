@@ -17,12 +17,12 @@ do_action( 'woocommerce_before_customer_login_form' );
    <?php endif; ?>
 
     <p class="login__input-wrapper">
-        <label for="username" class="login__input-label"><?php esc_html_e( 'Username or email address', 'woocommerce' ); ?>&nbsp;<span class="required">*</span></label>
         <input type="text" class="login__input-text" name="username" id="username" autocomplete="username" value="<?php echo ( ! empty( $_POST['username'] ) ) ? esc_attr( wp_unslash( $_POST['username'] ) ) : ''; ?>" /><?php // @codingStandardsIgnoreLine ?>
+        <label for="username" class="login__input-label"><?php esc_html_e( 'Username or email address', 'woocommerce' ); ?>&nbsp;<span class="required">*</span></label>
     </p>
     <p class="login__input-wrapper">
-        <label for="password" class="login__input-label"><?php esc_html_e( 'Password', 'woocommerce' ); ?>&nbsp;<span class="required">*</span></label>
         <input class="login__input-text" type="password" name="password" id="password" autocomplete="current-password" />
+        <label for="password" class="login__input-label"><?php esc_html_e( 'Password', 'woocommerce' ); ?>&nbsp;<span class="required">*</span></label>
     </p>
 
     <?php do_action( 'woocommerce_login_form' ); ?>
