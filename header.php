@@ -54,8 +54,9 @@
     </header>
     <header class="header header_desktop">
         <div class="header-wrapper wrapper">
-            <?php dynamic_sidebar( 'header' ) ?>
-            <div class="search">Search</div>
+            <div class="search">
+              <?php dynamic_sidebar( 'header' ) ?>
+            </div>
             <div class="menu-wrapper">
                 <?php wp_nav_menu(array(
                     'theme_location' => 'saturblade_main_menu',
