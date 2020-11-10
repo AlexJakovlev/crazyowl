@@ -84,34 +84,41 @@ function wpspec_show_product_description()
 
 // TODO АДМИНКА доп поля в вариативном товаре
 
-//function crazyowl_field_to_variation($i, $variation_data, $variation)
-//{
-//
-//    woocommerce_wp_text_input(
-//        array(
-//            'id' => 'speed_field[' . $i . ']',
-//            'class' => 'short',
-//            'wrapper_class' => 'form-row',
-//            'label' => 'Какое-то поле',
-//            'value' => get_post_meta($variation->ID, 'speed_field', true)
-//        )
-//    );
-//
-//}
-//add_action('woocommerce_save_product_variation', 'crazyowl_save_variation', 25, 2);
-//
-//function crazyowl_save_variation($variation_id, $i)
-//{
-//
-//    if (isset($_POST['speed_field'][$i])) {
-//        update_post_meta(
-//            $variation_id,
-//            'speed_field',
-//            sanitize_text_field($_POST['speed_field'][$i])
-//        );
-//    }
-//
-//}
+function saturblade_requirement_fields_from_product()
+{
+
+    woocommerce_wp_text_input(
+        array(
+            'id' => 'requirement_field',
+            'class' => 'short',
+            'label' => 'Tребования',
+            'desc_tip'          => true,
+            'description'       => 'Дополнительные требования',
+            'value' => get_post_meta(get_the_ID(), 'requirement_field', true)
+        )
+    );
+    woocommerce_wp_text_input(
+        array(
+            'id' => 'delivery_field',
+            'class' => 'short',
+            'label' => 'Delivery',
+            'desc_tip'          => true,
+            'description'       => 'Время на  выполнение',
+            'value' => get_post_meta(get_the_ID(), 'delivery_field', true)
+        )
+    );
+
+}
+add_action( 'woocommerce_product_options_advanced', 'saturblade_requirement_fields_from_product', 20);
+
+function saturblade_save_requirement_fields_from_product( $id ){
+
+    update_post_meta( $id, 'requirement_field', isset( $_POST[ 'requirement_field' ] ) ? $_POST[ 'requirement_field' ] : '' );
+    update_post_meta( $id, 'delivery_field', isset( $_POST[ 'delivery_field' ] ) ? $_POST[ 'delivery_field' ] : '' );
+
+}
+add_action( 'woocommerce_process_product_meta', 'saturblade_save_requirement_fields_from_product', 20, 2 );
+
 
 // TODO   LOOP  products SHOP
 
