@@ -152,7 +152,7 @@ function saturblade_show_product_sale_flash()
 //    print_r(get_term(24)->name);
     $tags = $product->get_tag_ids();
     foreach ($tags as $tag){
-        if (gettype($tag)==='object'){
+//        if (gettype($tag)==='object'){
         switch (get_term($tag)->name) {
             case 'hot' :
                 $hot = true;
@@ -161,7 +161,7 @@ function saturblade_show_product_sale_flash()
                 $new = true;
                 break;
         }
-        }
+//        }
     }
     if ($hot || $new || $product->is_on_sale()) {
         echo '<span class="products__item-labels">';
