@@ -141,9 +141,6 @@ add_action( 'woocommerce_process_product_meta', 'saturblade_save_requirement_fie
 function saturblade_show_product_sale_flash()
 {
 
-    /**
-     *  $tags - масиив меток товара ('24','25'...)
-     */
 
     global $product;
 
