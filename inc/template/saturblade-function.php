@@ -67,10 +67,10 @@ function wpspec_show_product_description()
     $meta = get_post_meta($product->get_id());
     $requirement_field= array_key_exists (  'requirement_field',$meta) ? $meta['requirement_field'][0] : false;
     $delivery_field= array_key_exists (  'delivery_field',$meta) ? $meta['delivery_field'][0] : false;
-
+    $class = is_product() ? "product" : '';
     ?>
   </div>
-    <div class="products__description">
+    <div class="products_<?php echo $class ?>_description">
         <p class="products__description-text"><?php echo get_the_excerpt() ?></p>
         <div>
             <?php if ( $requirement_field || $delivery_field ) {
@@ -143,13 +143,11 @@ function saturblade_show_product_sale_flash()
 
 
     global $product;
-
     $hot= false;
     $new = false;
-//    print_r(get_term(24)->name);
     $tags = $product->get_tag_ids();
+    $class = is_product() ? "product" : '';
     foreach ($tags as $tag){
-//        if (gettype($tag)==='object'){
         switch (get_term($tag)->name) {
             case 'hot' :
                 $hot = true;
@@ -158,10 +156,9 @@ function saturblade_show_product_sale_flash()
                 $new = true;
                 break;
         }
-//        }
     }
     if ($hot || $new || $product->is_on_sale()) {
-        echo '<span class="products__item-labels">';
+        echo '<span class="products_'.$class.'_item-labels">';
         if ($product->is_on_sale()){
         echo '<span class="products__item-label products__item-label_discount">discount</span>';
         }
