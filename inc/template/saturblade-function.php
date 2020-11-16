@@ -158,10 +158,10 @@ function saturblade_show_product_sale_flash()
         }
     }
     if ($hot || $new || $product->is_on_sale()) {
+	    if ($product->is_on_sale()){
+		    echo '<span class="products__item-label products__item-label_discount">discount</span>';
+	    }
         echo '<span class="products_'.$class.'_item-labels">';
-        if ($product->is_on_sale()){
-        echo '<span class="products__item-label products__item-label_discount">discount</span>';
-        }
         if ($new) {
             echo '<span class="products__item-label products__item-label_new">New</span>';
         }

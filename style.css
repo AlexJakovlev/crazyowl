@@ -487,6 +487,7 @@ h2 {
 }
 .woocommerce .products__item-top {
 	display: flex;
+	overflow: hidden;
 }
 .woocommerce .products__img {
 	width: 80px;
@@ -495,6 +496,7 @@ h2 {
 	border-top-left-radius: 10px;
 }
 .woocommerce .products__item-part {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 }
@@ -518,6 +520,9 @@ h2 {
 .woocommerce .products__item-label {
 	border-radius: 5px;
 }
+.woocommerce .products__item-label:not(:last-of-type) {
+	margin-right: 5px;
+}
 .woocommerce .products__item-label,
 .woocommerce .products__item-label i {
 	color: #fff;
@@ -525,12 +530,21 @@ h2 {
 	font-weight: 600;
 	text-transform: uppercase;
 }
+.woocommerce .products__item-label_discount {
+	padding: 0 30px;
+	position: absolute;
+	top: 22px;
+	left: -72%;
+	transform: rotate(-45deg);
+	background-color: #e04c4c;
+	font-size: 9px;
+}
 .woocommerce .products__item-label_new {
 	padding: 3px 5px;
 	background-color: #e04c4c;
 }
 .woocommerce .products__item-label_hot {
-	padding: 3px;
+	padding: 3px 3px 3px 4px;
 	background-color: #e08f1f;
 }
 .woocommerce .products__description-text {
@@ -1249,6 +1263,7 @@ h2 {
 	.woocommerce .products__item-top {
 		width: 100%;
 		flex-direction: column;
+		overflow: initial;
 	}
 	.woocommerce .products__img {
 		width: 80px;
@@ -1257,7 +1272,6 @@ h2 {
 		border-top-left-radius: 10px;
 	}
 	.woocommerce .products__item-part {
-		position: relative;
 		display: flex;
 		flex-direction: column;
 		padding: 20px 8px 0 8px;
@@ -1296,27 +1310,13 @@ h2 {
 		-webkit-box-orient: vertical;
 	}
 	.woocommerce .products__item-labels {
-		align-self: flex-end;
 		position: absolute;
 		top: -240px;
 	}
-	.woocommerce .products__item-label {
-		border-radius: 5px;
-	}
-	.woocommerce .products__item-label,
-	.woocommerce .products__item-label i {
-		color: #fff;
+	.woocommerce .products__item-label_discount {
+		top: -225px;
+		left: -33px;
 		font-size: 13px;
-		font-weight: 600;
-		text-transform: uppercase;
-	}
-	.woocommerce .products__item-label_new {
-		padding: 3px 5px;
-		background-color: #e04c4c;
-	}
-	.woocommerce .products__item-label_hot {
-		padding: 3px;
-		background-color: #e08f1f;
 	}
 	.woocommerce .products__description, form.variations_form {
 		width: 100%;
@@ -1596,11 +1596,6 @@ ul#menu-saturblade-footer-menu > li > a, .top-footer__menu-item > a {
 
 .woocommerce-LoopProduct-link {
 	position: relative;
-}
-.products__item-labels {
-	position: absolute;
-	right: 0;
-	top: 0;
 }
 
 .products__img {
