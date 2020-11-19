@@ -25,9 +25,6 @@ function saturblade_scripts()
         array(), '4.5.2', 'all');
     wp_enqueue_style('bootstrap-drawer-css', get_template_directory_uri() . '/inc/bootstrap-drawer.min.css',
         array(), '', 'all');
-    //TODO --- убрать TIME();
-    wp_enqueue_script('my-script', get_template_directory_uri() . '/inc/my_script.js',
-        array('jquery'), time(), 'in_footer');
     // Custom styles
     wp_enqueue_style('saturblade-style', get_stylesheet_uri(), array('google-fonts'),
         filemtime(get_template_directory() . '/style.css'), 'all');

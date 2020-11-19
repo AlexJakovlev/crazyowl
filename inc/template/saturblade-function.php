@@ -174,7 +174,7 @@ function saturblade_show_product_sale_flash()
 // Вывод картинок(и) товара в LOOP'e
 function saturblade_show_product_images()
 {
-    wc_get_template('single-product1/archive-product-image.php');
+    wc_get_template('single-product/archive-product-image.php');
 }
 
 // TODO вывод галереи
@@ -230,7 +230,7 @@ if (!function_exists('saturblade_variable_add_to_cart')) {
 
             // Load the template.
             wc_get_template(
-                'single-product1/add-to-cart/archive-variable.php',
+                'single-product/add-to-cart/archive-variable.php',
                 array(
                     'available_variations' => $get_variations ? $product->get_available_variations() : false,
                     'attributes' => $product->get_variation_attributes(),
@@ -243,9 +243,13 @@ if (!function_exists('saturblade_variable_add_to_cart')) {
 
 function saturblade_variable_loop_product_btns()
 {
+    global $product;
+    wp_enqueue_script('my-script', get_template_directory_uri() . '/inc/my_script.js',
+        array('jquery'), filemtime(get_template_directory()), 'in_footer');
     echo '<div class="products__btns">';
     saturblade_button_proceed_to_checkout();
     do_action('saturblade_product_btns');
+    echo '<div id="shieldpost-'.$product->get_id() .'"  title="SELECT attribute" class="shield"></div>';
     echo '</div>';
 }
 
@@ -411,7 +415,7 @@ function saturblade_dropdown_variation_attribute_options($args = array())
         $options = $attributes[$attribute];
     }
 
-    $html = '<select id="' . esc_attr($id) . '-' . $product->get_id() . '" class="' . esc_attr($class) . ' products__description-select' . '" name="' . esc_attr($name) . '" data-attribute_name="attribute_' . esc_attr(sanitize_title($attribute)) . '" data-show_option_none="' . ($show_option_none ? 'yes' : 'no') . '">';
+    $html = '<select data-product-id="' . $product->get_id() . '" class="' . esc_attr($class) . ' products__description-select' . '" name="' . esc_attr($name) . '" data-attribute_name="attribute_' . esc_attr(sanitize_title($attribute)) . '" data-show_option_none="' . ($show_option_none ? 'yes' : 'no') . '">';
     $html .= '<option data-id="'.$product->get_id().'" value="">' . esc_html($show_option_none_text) . '</option>';
 
     if (!empty($options)) {
