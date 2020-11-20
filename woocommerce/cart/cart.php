@@ -93,13 +93,37 @@ do_action('woocommerce_before_cart'); ?>
                         }
                         ?>
                     </div>
+
+                    <div class="product_description"><?php echo $_product->get_description() ?></div>
                     <?php
-
-
+                    $parent = $_product->get_parent_id();
+                    $product_id = $parent ? $parent : $_product->get_id();
+                    $meta = get_post_meta($product_id);
+                    $requirement_field = array_key_exists('requirement_field', $meta) ? $meta['requirement_field'][0] : false;
+                    $delivery_field = array_key_exists('delivery_field', $meta) ? $meta['delivery_field'][0] : false;
+                    $class = is_product() ? "product" : '';
                     ?>
-                    <div>product desc</div>
-                    <div>product spec</div>
-                    <div>if variation selected var</div>
+                    <div class="products_<?php echo $class ?>_description">
+                        <p class="products__description-text"><?php echo get_the_excerpt() ?></p>
+                        <div>
+                            <?php if ($requirement_field || $delivery_field) {
+                                echo '<p class="products__description-requirements">This product have requirements</p>';
+                                echo '<p class="products__description-requirements">Requiremets: ' . $requirement_field . '</p>';
+                                echo '<p class="products__description-requirements">Время выполнения: ' . $delivery_field . '</p>';
+
+                            }
+                            ?>
+                            <label for="urgent-<?php echo $product_id; ?>" class="products__description-checkbox-label">
+                                <span class="woocommerce-help-tip"></span>
+                                <input id="speed-<?php echo $product_id; ?>" type="checkbox" class="checkbox" style=""
+                                       name="Urgency">
+                                <span>Срочность выполнения</span>
+                            </label>
+                        </div>
+                    </div>
+                    <?php if ($parent) {
+                        echo '<div>' . $_product->get_attribute_summary() . '</div>';
+                    } ?>
                     <div class="product-price" data-title="<?php esc_attr_e('Price', 'woocommerce'); ?>">
                         <?php
                         echo apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key); // PHPCS: XSS ok.
