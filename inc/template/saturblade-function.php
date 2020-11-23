@@ -73,15 +73,18 @@ function wpspec_show_product_description()
     <div class="products_<?php echo $class ?>_description">
         <p class="products__description-text"><?php echo get_the_excerpt() ?></p>
         <div>
-            <?php if ( $requirement_field || $delivery_field ) {
-               echo  '<p class="products__description-requirements products__description-requirements_label">This product have requirements</p>';
-               echo  '<p class="products__description-requirements">Requiremets: '.$requirement_field.'</p>';
-            }
-            ?>
-            <?php if ( $delivery_field ) {
-	            echo  '<p class="products__description-requirements">Время выполнения: '.$delivery_field.'</p>';
-            }
-            ?>
+          <!--  TODO: make requirements appear on hover -->
+<!--          <p class="products__description-requirements products__description-requirements_label">-->
+<!--            --><?php //if ( $requirement_field ) { echo 'This product have requirements'; } ?>
+<!--          </p>-->
+          <p class="products__description-requirements">
+            <span>Requiremets: </span>
+            <?php if ( $requirement_field ) { echo $requirement_field; } ?>
+          </p>
+          <p class="products__description-requirements">
+            <span>Время выполнения:</span>
+            <?php if ( $delivery_field ) { echo $delivery_field; } ?>
+          </p>
           <label for="urgent-<?php echo $product->get_id(); ?>" class="products__description-checkbox-label">
             <span class="woocommerce-help-tip"></span>
             <input id="speed-<?php echo $product->get_id(); ?>" type="checkbox" class="checkbox" style="" name="Urgency">
@@ -270,7 +273,7 @@ if (!function_exists('saturblade_button_proceed_to_checkout')) {
         }
         ?>
 
-        <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="btn btn-danger products__btn">
+        <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="btn btn-danger products__btn button">
             <?php esc_html_e('BUY NOW', 'woocommerce'); ?>
         </a>
         <?php
