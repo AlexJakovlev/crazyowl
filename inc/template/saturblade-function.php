@@ -74,10 +74,12 @@ function wpspec_show_product_description()
         <p class="products__description-text"><?php echo get_the_excerpt() ?></p>
         <div>
             <?php if ( $requirement_field || $delivery_field ) {
-               echo  '<p class="products__description-requirements">This product have requirements</p>';
+               echo  '<p class="products__description-requirements products__description-requirements_label">This product have requirements</p>';
                echo  '<p class="products__description-requirements">Requiremets: '.$requirement_field.'</p>';
-               echo  '<p class="products__description-requirements">Время выполнения: '.$delivery_field.'</p>';
-
+            }
+            ?>
+            <?php if ( $delivery_field ) {
+	            echo  '<p class="products__description-requirements">Время выполнения: '.$delivery_field.'</p>';
             }
             ?>
           <label for="urgent-<?php echo $product->get_id(); ?>" class="products__description-checkbox-label">
