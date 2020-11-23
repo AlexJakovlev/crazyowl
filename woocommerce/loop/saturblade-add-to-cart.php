@@ -20,11 +20,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
+$args['class'] =esc_attr( isset( $args['class'] ) ? $args['class'] : 'button' );
+$args['class'] = $args['class']." btn btn-danger products__btn";
 
 echo apply_filters(
     'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
-    sprintf(
-        '<a href="%s" data-quantity="%s" class="%s" %s >%s</a>',
+    sprintf(//data-product_id="%s"
+        '<a data-product_Vid="%s" href="%s" data-quantity="%s" class="%s" %s >%s</a>',
+        esc_html($product->get_id()),
         esc_url( saturblade_add_to_cart_url() ),
         esc_attr( isset( $args['quantity'] ) ? $args['quantity'] : 1 ),
         esc_attr( isset( $args['class'] ) ? $args['class'] : 'button' ),

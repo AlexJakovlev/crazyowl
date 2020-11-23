@@ -601,11 +601,13 @@ h2 {
 	color: #747373;;
 }
 .woocommerce .products__btns {
+	position: relative;
 	width: 100%;
 	margin-top: 20px;
 	display: flex;
 	justify-content: space-between;
 }
+
 .woocommerce .btn.products__btn,
 .woocommerce .btn.products__btn_advert {
 	padding: 5px 15px;
@@ -1614,4 +1616,12 @@ ul#menu-saturblade-footer-menu > li > a, .top-footer__menu-item > a {
 
 form.products__description-select {
 	margin: 0!important;
+}
+
+.shield {
+height: 100%;
+width: 100%;
+position: absolute;
+background-color: #ebe9eb;
+opacity: 0.5;
 }
