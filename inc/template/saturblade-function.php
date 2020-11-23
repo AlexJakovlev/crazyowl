@@ -249,7 +249,10 @@ function saturblade_variable_loop_product_btns()
     echo '<div class="products__btns">';
     saturblade_button_proceed_to_checkout();
     do_action('saturblade_product_btns');
-    echo '<div id="shieldpost-'.$product->get_id() .'"  title="SELECT attribute" class="shield"></div>';
+    $var = $product->get_type();
+    if ('variable' === $product->get_type()) {
+        echo '<div id="shieldpost-' . $product->get_id() . '"  title="SELECT attribute" class="shield"></div>';
+    }
     echo '</div>';
 }
 
