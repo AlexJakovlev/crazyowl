@@ -20,6 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
+$args['class'] =esc_attr( isset( $args['class'] ) ? $args['class'] : 'button' );
+$args['class'] = $args['class']." btn btn-danger products__btn";
 
 echo apply_filters(
     'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
