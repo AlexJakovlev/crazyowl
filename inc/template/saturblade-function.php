@@ -284,7 +284,7 @@ add_filter( 'woocommerce_breadcrumb_defaults', 'ts_woocommerce_breadcrumbs_chang
 
 function ts_woocommerce_breadcrumbs_change($defaults) {
 
-        $defaults['home'] =  '<nav class="woocommerce-breadcrumb section">';
+        $defaults['wrap_before'] =  '<nav class="woocommerce-breadcrumb section">';
         return $defaults;
 
 }
