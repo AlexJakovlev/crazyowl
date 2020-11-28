@@ -282,15 +282,11 @@ if (!function_exists('saturblade_button_proceed_to_checkout')) {
 
 add_filter( 'woocommerce_breadcrumb_defaults', 'ts_woocommerce_breadcrumbs_change' );
 
-function ts_woocommerce_breadcrumbs_change() {
-    return array(
-        'delimiter'   => '&nbsp;&#47;&nbsp;',
-        'wrap_before' => '<nav class="woocommerce-breadcrumb section">',
-        'wrap_after'  => '</nav>',
-        'before'      => '',
-        'after'       => '',
-        'home'        => _x( 'Home', 'breadcrumb', 'woocommerce' ),
-    );
+function ts_woocommerce_breadcrumbs_change($defaults) {
+
+        $defaults['home'] =  '<nav class="woocommerce-breadcrumb section">';
+        return $defaults;
+
 }
 
 
