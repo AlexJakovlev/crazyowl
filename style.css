@@ -637,7 +637,34 @@ h2 {
 	font-size: 13px;
 	letter-spacing: 0.01em;
 }
-	/* My account */
+/*    Single Product Page   */
+.single-product-page {
+	position: relative;
+}
+.woocommerce .single-product-page .woocommerce-breadcrumb {
+	position: absolute;
+	top: 210px;
+	z-index: 10;
+}
+.woocommerce .single-product-page .woocommerce-breadcrumb,
+.woocommerce .single-product-page .woocommerce-breadcrumb a {
+	color: #0E214A;
+	font-size: 11px;
+	text-transform: uppercase;
+}
+.woocommerce .single-product-page div.product div.images {
+	height: 200px;
+}
+.woocommerce .single-product-page div.product div.images .woocommerce-product-gallery__wrapper {
+	height: 100%;
+}
+.woocommerce .single-product-page div.product div.images .woocommerce-product-gallery__image {
+	height: 100%;
+}
+.woocommerce .single-product-page div.product div.images img {
+	object-fit: cover;
+}
+/*    My account */
 .woocommerce-account h2 {
 	display: none;
 }

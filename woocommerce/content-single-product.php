@@ -18,7 +18,10 @@
 defined( 'ABSPATH' ) || exit;
 
 global $product;
+?>
 
+
+<?php
 /**
  * Hook: woocommerce_before_single_product.
  *
@@ -44,7 +47,7 @@ if ( post_password_required() ) {
     do_action('saturblade_single_item');
     ?>
 
-    <div class="summary entry-summary">
+    <div class="section">
         <?php
         /**
          * Hook: woocommerce_single_product_summary.
@@ -77,3 +80,4 @@ if ( post_password_required() ) {
 
 <?php //do_action( 'woocommerce_after_single_product' ); ?>
 
+</div>
