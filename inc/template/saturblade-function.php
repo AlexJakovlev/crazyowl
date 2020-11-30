@@ -280,6 +280,16 @@ if (!function_exists('saturblade_button_proceed_to_checkout')) {
     }
 }
 
+add_filter( 'woocommerce_breadcrumb_defaults', 'ts_woocommerce_breadcrumbs_change' );
+
+function ts_woocommerce_breadcrumbs_change($defaults) {
+
+        $defaults['wrap_before'] =  '<nav class="woocommerce-breadcrumb section">';
+        return $defaults;
+
+}
+
+
 //add_filter('woocommerce_variable_price_html', 'my_woocommerce_variable_price_html', 10, 2);
 //
 //function my_woocommerce_variable_price_html($price, $product)
