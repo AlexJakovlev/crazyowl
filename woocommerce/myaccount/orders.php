@@ -18,7 +18,8 @@
                      <div class="order__product-item-left-description">
                         <p class="order__product-item-left-description_warning">In progress <i class="far fa-clock"></i></p>
                         <p>Class: Guardian</p>
-                        <p>Срочность</p>
+                        <p>
+                            Urgency</p>
                      </div>
                   </div>
                </div>

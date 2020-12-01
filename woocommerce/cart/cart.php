@@ -109,7 +109,7 @@ do_action('woocommerce_before_cart'); ?>
                             <?php if ($requirement_field || $delivery_field) {
                                 echo '<p class="products__description-requirements">This product have requirements</p>';
                                 echo '<p class="products__description-requirements">Requiremets: ' . $requirement_field . '</p>';
-                                echo '<p class="products__description-requirements">Время выполнения: ' . $delivery_field . '</p>';
+                                echo '<p class="products__description-requirements">Lead time: ' . $delivery_field . '</p>';
 
                             }
                             ?>
@@ -117,7 +117,7 @@ do_action('woocommerce_before_cart'); ?>
                                 <span class="woocommerce-help-tip"></span>
                                 <input id="speed-<?php echo $product_id; ?>" type="checkbox" class="checkbox" style=""
                                        name="Urgency">
-                                <span>Срочность выполнения</span>
+                                <span>Urgency of execution</span>
                             </label>
                         </div>
                     </div>
