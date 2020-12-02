@@ -20,7 +20,7 @@ function saturblade_validate_registration($errors)
 
 //    wc_add_notice( 'Ваш нужно принять политику конфиденциальности.', 'notice' );
     if (strcmp($_POST['password'], $_POST['password2']) !== 0) {
-        $errors->add('name_err', '<strong>Ошибка</strong>: Несовпадают пароли');
+        $errors->add('name_err', '<strong>ERROR</strong>: Passwords do not match');
     }
     return $errors;
 }
@@ -82,13 +82,13 @@ function wpspec_show_product_description()
             <?php if ( $requirement_field ) { echo $requirement_field; } ?>
           </p>
           <p class="products__description-requirements">
-            <span>Время выполнения:</span>
+            <span>Lead time:</span>
             <?php if ( $delivery_field ) { echo $delivery_field; } ?>
           </p>
           <label for="urgent-<?php echo $product->get_id(); ?>" class="products__description-checkbox-label">
             <span class="woocommerce-help-tip"></span>
             <input id="speed-<?php echo $product->get_id(); ?>" type="checkbox" class="checkbox" style="" name="Urgency">
-            <span>Срочность выполнения</span>
+            <span>Urgency of execution</span>
           </label>
         </div>
     </div>
@@ -255,7 +255,7 @@ function saturblade_variable_loop_product_btns()
     saturblade_button_proceed_to_checkout();
     do_action('saturblade_product_btns');
     $var = $product->get_type();
-    if ('variable' === $product->get_type()) {
+    if ('variable' === $var) {
         echo '<div id="shieldpost-' . $product->get_id() . '"  title="SELECT attribute" class="shield"></div>';
     }
     echo '</div>';
