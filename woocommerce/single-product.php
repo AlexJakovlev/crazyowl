@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php get_header( 'shop' ); ?>
 <div class="single-product-page content">
+  <div class="wrapper">
 <?php
 /**
  * woocommerce_before_main_content hook.
@@ -56,6 +57,7 @@ do_action( 'woocommerce_after_main_content' );
  */
 do_action( 'woocommerce_sidebar' );
 ?>
+  </div>
 </div>
 <?php
 get_footer( );
