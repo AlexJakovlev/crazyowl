@@ -38,3 +38,10 @@ add_action('saturblade_single_product_summary', 'saturblade_variable_loop_produc
 //add_action('saturblade_single_product_summary','woocommerce_template_single_add_to_cart',45);
 //add_action('saturblade_single_product_summary','woocommerce_template_single_meta',55);
 //add_action('saturblade_single_product_summary','woocommerce_template_single_sharing',65);
+
+
+add_action('saturblade_shop_loop_home','woocommerce_template_loop_product_link_open',5);
+add_action('saturblade_shop_loop_home','saturblade_show_product_images', 10);
+add_action('saturblade_shop_loop_home','products_variable_item_part', 15);
+add_action('saturblade_shop_loop_home','woocommerce_template_loop_product_link_close', 13);
+//add_action('saturblade_shop_loop_home','woocommerce_template_loop_product_link_open',5);
